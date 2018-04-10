@@ -2,11 +2,11 @@ using SwinGameSDK; //checked by David and Sam, all good
 
 static class DiscoveryController
 {
-    public void HandleDiscoveryInput()
+    public static void HandleDiscoveryInput()
     {
-        if (SwinGame.KeyTyped(KeyCode.VK_ESCAPE))
+		if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE))
         {
-            AddNewState(GameState.ViewingGameMenu);
+            GameController.AddNewState(GameState.ViewingGameMenu);
         }
 
         if (SwinGame.MouseClicked(MouseButton.LeftButton))
@@ -15,7 +15,7 @@ static class DiscoveryController
         }
     }
 
-    private void DoAttack()
+    private static void DoAttack()
     {
         Point2D mouse;
         mouse = SwinGame.MousePosition();
@@ -31,7 +31,7 @@ static class DiscoveryController
         }
     }
 
-    public void DrawDiscovery()
+    public static void DrawDiscovery()
     {
         const int SCORES_LEFT = 172;
         const int SHOTS_TOP = 157;

@@ -2,7 +2,7 @@ using SwinGameSDK; //checked by David, all fine
 
 static class EndingGameController
 {
-    public void DrawEndOfGame()
+    public static void DrawEndOfGame()
     {
         Rectangle toDraw;
         string whatShouldIPrint;
@@ -27,7 +27,7 @@ static class EndingGameController
         SwinGame.DrawTextLines(whatShouldIPrint, Color.White, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, toDraw);
     }
 
-    public void HandleEndOfGameInput()
+    public static void HandleEndOfGameInput()
     {
         if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.VK_RETURN) || SwinGame.KeyTyped(KeyCode.VK_ESCAPE))
         {

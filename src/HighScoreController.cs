@@ -1,32 +1,37 @@
-using System.IO; //checked by David, all fine
+using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using SwinGameSDK;
 
 static class HighScoreController
 {
     private const int NAME_WIDTH = 3;
     private const int SCORES_LEFT = 490;
-	
-    private struct Score : IComparable
-    {
-        public string Name;
-        public int Value;
-        public int CompareTo(object obj)
-        {
-            if (obj is Score)
-            {
-                Score other = (Score)obj;
-                return other.Value - this.Value;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-    }
 
-    private List<Score> _Scores = new List<Score>;
+
+	//uncomment me when model file is converted!!!!
+    //private struct Score : IComparable
+    //{
+    //    public string Name;
+    //    public int Value;
+    //    public int CompareTo(object obj)
+    //    {
+    //        if (obj is Score)
+    //        {
+    //            Score other = (Score)obj;
+    //            return other.Value - this.Value;
+    //        }
+    //        else
+    //        {
+    //            return 0;
+    //        }
+    //    }
+    //}
+
+	//uncomment me when model file is converted!!!!
+	//private static List<Score> _Scores = new List<Score>();
 	
-    private void LoadScores()
+    private static void LoadScores()
     {
         string filename;
         filename = SwinGame.PathToResource("highscores.txt");
@@ -55,7 +60,7 @@ static class HighScoreController
         input.Close();
     }
 
-    private void SaveScores()
+    private static void SaveScores()
     {
         string filename;
         filename = SwinGame.PathToResource("highscores.txt");
@@ -73,7 +78,7 @@ static class HighScoreController
         output.Close();
     }
 
-    public void DrawHighScores()
+    public static void DrawHighScores()
     {
         const int SCORES_HEADING = 40;
         const int SCORES_TOP = 80;
@@ -101,7 +106,7 @@ static class HighScoreController
         }
     }
 
-    public void HandleHighScoreInput()
+    public static void HandleHighScoreInput()
     {
         if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.VK_ESCAPE) || SwinGame.KeyTyped(KeyCode.VK_RETURN))
         {
@@ -109,7 +114,7 @@ static class HighScoreController
         }
     }
 
-    public void ReadHighScore(int value)
+    public static void ReadHighScore(int value)
     {
         const int ENTRY_TOP = 500;
 		
@@ -118,7 +123,7 @@ static class HighScoreController
 		
         if (value > _Scores.Item(_Scores.Count - 1).Value)
         {
-            Score s = new Score;
+			Score s = new Score();
             s.Value = value;
 			
             AddNewState(GameState.ViewingHighScores);

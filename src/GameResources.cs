@@ -1,7 +1,9 @@
 using SwinGameSDK;
 using System.Collections.Generic;
+
 public class GameResources {
     
+	//Loading fonts
     private static void LoadFonts() {
         GameResources.NewFont("ArialLarge", "arial.ttf", 80);
         GameResources.NewFont("Courier", "cour.ttf", 14);
@@ -9,24 +11,26 @@ public class GameResources {
         GameResources.NewFont("Menu", "ffaccess.ttf", 8);
     }
     
+	//loading imagines
     private static void LoadImages() {
-        // Backgrounds
+        
+		// Backgrounds
         GameResources.NewImage("Menu", "main_page.jpg");
         GameResources.NewImage("Discovery", "discover.jpg");
         GameResources.NewImage("Deploy", "deploy.jpg");
-        // Deployment
+        
+		// Deployment
         GameResources.NewImage("LeftRightButton", "deploy_dir_button_horiz.png");
         GameResources.NewImage("UpDownButton", "deploy_dir_button_vert.png");
         GameResources.NewImage("SelectedShip", "deploy_button_hl.png");
         GameResources.NewImage("PlayButton", "deploy_play_button.png");
         GameResources.NewImage("RandomButton", "deploy_randomize_button.png");
-        // Ships
-        int i;
+        
+		// Ships
+        int i; //why is this not inside the for loop has me confused, fix this later
         for (i = 1; (i <= 5); i++) {
-            GameResources.NewImage(("ShipLR" + i), ("ship_deploy_horiz_" 
-                            + (i + ".png")));
-            GameResources.NewImage(("ShipUD" + i), ("ship_deploy_vert_" 
-                            + (i + ".png")));
+            GameResources.NewImage(("ShipLR" + i), ("ship_deploy_horiz_" + (i + ".png")));
+            GameResources.NewImage(("ShipUD" + i), ("ship_deploy_vert_" + (i + ".png")));
         }
         
         // Explosions
@@ -48,40 +52,26 @@ public class GameResources {
         GameResources.NewMusic("Background", "horrordrone.mp3");
     }
     
-    // '' <summary>
-    // '' Gets a Font Loaded in the Resources
-    // '' </summary>
-    // '' <param name="font">Name of Font</param>
-    // '' <returns>The Font Loaded with this Name</returns>
+
+    //Gets a Font Loaded in the Resources
     public static Font GameFont(string font) {
-        return _Fonts(font);
+        //what is in the square brackets is the key used to locate a section within the dictionary
+		return _Fonts[font];
     }
     
-    // '' <summary>
-    // '' Gets an Image loaded in the Resources
-    // '' </summary>
-    // '' <param name="image">Name of image</param>
-    // '' <returns>The image loaded with this name</returns>
+    //Gets an Image loaded in the Resources
     public static Bitmap GameImage(string image) {
-        return _Images(image);
+        return _Images[image];
     }
     
-    // '' <summary>
-    // '' Gets an sound loaded in the Resources
-    // '' </summary>
-    // '' <param name="sound">Name of sound</param>
-    // '' <returns>The sound with this name</returns>
+    //Gets an sound loaded in the Resources
     public static SoundEffect GameSound(string sound) {
-        return _Sounds(sound);
+        return _Sounds[sound];
     }
     
-    // '' <summary>
-    // '' Gets the music loaded in the Resources
-    // '' </summary>
-    // '' <param name="music">Name of music</param>
-    // '' <returns>The music with this name</returns>
+    //Gets the music loaded in the Resources
     public static Music GameMusic(string music) {
-        return _Music(music);
+        return _Music[music];
     }
     
     private Dictionary<string, Bitmap> _Images = new Dictionary<string, Bitmap>();
@@ -226,32 +216,28 @@ public class GameResources {
     }
     
     private static void FreeFonts() {
-        Font obj;
-        foreach (obj in _Fonts.Values) {
+        foreach (Font obj in _Fonts.Values) {
             SwinGame.FreeFont(obj);
         }
         
     }
     
     private static void FreeImages() {
-        Bitmap obj;
-        foreach (obj in _Images.Values) {
+        foreach (Bitmap obj in _Images.Values) {
             SwinGame.FreeBitmap(obj);
         }
         
     }
     
     private static void FreeSounds() {
-        SoundEffect obj;
-        foreach (obj in _Sounds.Values) {
+        foreach (SoundEffect obj in _Sounds.Values) {
             Audio.FreeSoundEffect(obj);
         }
         
     }
     
     private static void FreeMusic() {
-        Music obj;
-        foreach (obj in _Music.Values) {
+        foreach (Music obj in _Music.Values) {
             Audio.FreeMusic(obj);
         }
         
