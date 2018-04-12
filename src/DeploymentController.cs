@@ -1,8 +1,9 @@
-using SwinGameSDK; //checked by David, all fine
-				   // '' <summary>
-				   // '' The DeploymentController controls the players actions
-				   // '' during the deployment phase.
-				   // '' </summary>
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+using SwinGameSDK; 
+
 class DeploymentController
 {
 
@@ -28,11 +29,9 @@ class DeploymentController
 
 	private const int TEXT_OFFSET = 5;
 
+	private static Direction _currentDirection = Direction.UpDown;
 
-	//uncomment me when model file is converted!!!!
-	//private Direction _currentDirection = Direction.UpDown;
-
-	//private ShipName _selectedShip = ShipName.Tug;
+	private static ShipName _selectedShip = ShipName.Tug;
 
 	// '' <summary>
 	// '' Handles user input for the Deployment phase of the game.
@@ -44,20 +43,20 @@ class DeploymentController
 	// '' </remarks>
 	public static void HandleDeploymentInput ()
 	{
-		if (SwinGame.KeyTyped (KeyCode.VK_ESCAPE)) {
-			AddNewState (GameState.ViewingGameMenu);
+		if (SwinGame.KeyTyped (KeyCode.vk_ESCAPE)) {
+			GameController.AddNewState (GameState.ViewingGameMenu);
 		}
 
-		if ((SwinGame.KeyTyped (KeyCode.VK_UP) || SwinGame.KeyTyped (KeyCode.VK_DOWN))) {
+		if ((SwinGame.KeyTyped (KeyCode.vk_UP) || SwinGame.KeyTyped (KeyCode.vk_DOWN))) {
 			_currentDirection = Direction.UpDown;
 		}
 
-		if ((SwinGame.KeyTyped (KeyCode.VK_LEFT) || SwinGame.KeyTyped (KeyCode.VK_RIGHT))) {
+		if ((SwinGame.KeyTyped (KeyCode.vk_LEFT) || SwinGame.KeyTyped (KeyCode.vk_RIGHT))) {
 			_currentDirection = Direction.LeftRight;
 		}
 
-		if (SwinGame.KeyTyped (KeyCode.VK_R)) {
-			HumanPlayer.RandomizeDeployment ();
+		if (SwinGame.KeyTyped (KeyCode.vk_r)) {
+			GameController.HumanPlayer.RandomizeDeployment ();
 		}
 
 		if (SwinGame.MouseClicked (MouseButton.LeftButton)) {
@@ -69,14 +68,14 @@ class DeploymentController
 				DeploymentController.DoDeployClick ();
 			}
 
-			if ((HumanPlayer.ReadyToDeploy && IsMouseInRectangle (PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))) {
-				EndDeployment ();
+			if ((GameController.HumanPlayer.ReadyToDeploy && UtilityFunctions.IsMouseInRectangle (PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))) {
+				GameController.EndDeployment ();
 			} else if (IsMouseInRectangle (UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT)) {
 				_currentDirection = Direction.LeftRight;
 			} else if (IsMouseInRectangle (LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT)) {
 				_currentDirection = Direction.LeftRight;
 			} else if (IsMouseInRectangle (RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP, RANDOM_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT)) {
-				HumanPlayer.RandomizeDeployment ();
+				GameController.HumanPlayer.RandomizeDeployment ();
 			}
 
 		}
@@ -101,12 +100,12 @@ class DeploymentController
 		row = Convert.ToInt32 (Math.Floor ((mouse.Y / (CELL_HEIGHT + CELL_GAP))));
 		col = Convert.ToInt32 (Math.Floor (((mouse.X - FIELD_LEFT) / (CELL_WIDTH + CELL_GAP))));
 		if (((row >= 0)
-					&& (row < HumanPlayer.PlayerGrid.Height))) {
+					&& (row < GameController.HumanPlayer.PlayerGrid.Height))) {
 			if (((col >= 0)
-						&& (col < HumanPlayer.PlayerGrid.Width))) {
+						&& (col < GameController.HumanPlayer.PlayerGrid.Width))) {
 				// if in the area try to deploy
 				try {
-					HumanPlayer.PlayerGrid.MoveShip (row, col, _selectedShip, _currentDirection);
+					GameController.HumanPlayer.PlayerGrid.MoveShip (row, col, _selectedShip, _currentDirection);
 				} catch (Exception ex) {
 					Audio.PlaySoundEffect (GameSound ("Error"));
 					Message = ex.Message;
@@ -174,18 +173,17 @@ class DeploymentController
 	// '' </summary>
 	// '' <returns>The ship selected or none</returns>
 
-	//uncomment me when model file is converted!!!!
-	//private static ShipName GetShipMouseIsOver ()
-	//{
-	//	foreach (ShipName sn in Enum.GetValues (typeof (ShipName))) {
-	//		int i;
-	//		i = (Int (sn) - 1);
-	//		if (IsMouseInRectangle (SHIPS_LEFT, (SHIPS_TOP + (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT)) {
-	//			return sn;
-	//		}
+	private static ShipName GetShipMouseIsOver ()
+	{
+		foreach (ShipName sn in Enum.GetValues (typeof (ShipName))) {
+			int i;
+			i = (Int (sn) - 1);
+			if (IsMouseInRectangle (SHIPS_LEFT, (SHIPS_TOP + (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT)) {
+				return sn;
+			}
 
-	//	}
+		}
 
-	//	return ShipName.None;
-	//}
+		return ShipName.None;
+	}
 }

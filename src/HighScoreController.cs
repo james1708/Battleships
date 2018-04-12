@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,27 +10,25 @@ static class HighScoreController
     private const int SCORES_LEFT = 490;
 
 
-	//uncomment me when model file is converted!!!!
-    //private struct Score : IComparable
-    //{
-    //    public string Name;
-    //    public int Value;
-    //    public int CompareTo(object obj)
-    //    {
-    //        if (obj is Score)
-    //        {
-    //            Score other = (Score)obj;
-    //            return other.Value - this.Value;
-    //        }
-    //        else
-    //        {
-    //            return 0;
-    //        }
-    //    }
-    //}
+	private struct Score : IComparable
+    {
+        public string Name;
+        public int Value;
+        public int CompareTo(object obj)
+        {
+            if (obj is Score)
+            {
+                Score other = (Score)obj;
+                return other.Value - this.Value;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
 
-	//uncomment me when model file is converted!!!!
-	//private static List<Score> _Scores = new List<Score>();
+	private static List<Score> _Scores = new List<Score>();
 	
     private static void LoadScores()
     {

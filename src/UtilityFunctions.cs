@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using SwinGameSDK;
 
 namespace MyGame
@@ -64,10 +66,9 @@ namespace MyGame
     // '' <param name="thePlayer">the players ships to show</param>
     // '' <param name="showShips">indicates if the ships should be shown</param>
 
-	//uncomment me when model file is converted!!!!
-    //public static void DrawField(ISeaGrid grid, Player thePlayer, bool showShips) {
-    //    UtilityFunctions.DrawCustomField(grid, thePlayer, false, showShips, FIELD_LEFT, FIELD_TOP, FIELD_WIDTH, FIELD_HEIGHT, CELL_WIDTH, CELL_HEIGHT, CELL_GAP);
-    //}
+    public static void DrawField(ISeaGrid grid, Player thePlayer, bool showShips) {
+        UtilityFunctions.DrawCustomField(grid, thePlayer, false, showShips, FIELD_LEFT, FIELD_TOP, FIELD_WIDTH, FIELD_HEIGHT, CELL_WIDTH, CELL_HEIGHT, CELL_GAP);
+    }
     
     // '' <summary>
     // '' Draws a small field, showing the attacks made and the locations of the player's ships
@@ -75,17 +76,17 @@ namespace MyGame
     // '' <param name="grid">the grid to show</param>
     // '' <param name="thePlayer">the player to show the ships of</param>
 
-	//uncomment me when model file is converted!!!!
-    //public static void DrawSmallField(ISeaGrid grid, Player thePlayer) {
-    //    const int SMALL_FIELD_TOP = 373;
-    //    int SMALL_FIELD_LEFT = 39;
-    //    const int SMALL_FIELD_HEIGHT = 166;
-    //    int SMALL_FIELD_WIDTH = 166;
-    //    const int SMALL_FIELD_CELL_HEIGHT = 13;
-    //    int SMALL_FIELD_CELL_WIDTH = 13;
-    //    const int SMALL_FIELD_CELL_GAP = 4;
-    //    UtilityFunctions.DrawCustomField(grid, thePlayer, true, true, SMALL_FIELD_LEFT, SMALL_FIELD_TOP, SMALL_FIELD_WIDTH, SMALL_FIELD_HEIGHT, SMALL_FIELD_CELL_WIDTH, SMALL_FIELD_CELL_HEIGHT, SMALL_FIELD_CELL_GAP);
-    //}
+
+    public static void DrawSmallField(ISeaGrid grid, Player thePlayer) {
+        const int SMALL_FIELD_TOP = 373;
+        int SMALL_FIELD_LEFT = 39;
+        const int SMALL_FIELD_HEIGHT = 166;
+        int SMALL_FIELD_WIDTH = 166;
+        const int SMALL_FIELD_CELL_HEIGHT = 13;
+        int SMALL_FIELD_CELL_WIDTH = 13;
+        const int SMALL_FIELD_CELL_GAP = 4;
+        UtilityFunctions.DrawCustomField(grid, thePlayer, true, true, SMALL_FIELD_LEFT, SMALL_FIELD_TOP, SMALL_FIELD_WIDTH, SMALL_FIELD_HEIGHT, SMALL_FIELD_CELL_WIDTH, SMALL_FIELD_CELL_HEIGHT, SMALL_FIELD_CELL_GAP);
+    }
 
 		// '' <summary>
 		// '' Draws the player's grid and ships.
@@ -119,7 +120,7 @@ namespace MyGame
 					Color fillColor;
 					bool draw;
 					draw = true;
-					switch (grid.Item [row, col]) {
+					switch (grid[row, col]) {
 					case TileView.Ship:
 						draw = false;
 						if (small) {
@@ -169,13 +170,13 @@ namespace MyGame
 				return;
 			}
 
-			int shipHeight;
-			int shipWidth;
-			string shipName;
+            int shipHeight = 0;
+			int shipWidth = 0;
+			string shipName = null;
 			// Draw the ships
 			foreach (Ship s in thePlayer) {
-				if (((s == null) || !s.IsDeployed)) 
-				{
+				if (s == null || !s.IsDeployed) continue; 
+	
 					rowTop = top + (cellGap + cellHeight) * s.Row + SHIP_GAP;
 					colLeft = left + (cellGap + cellWidth) * s.Column + SHIP_GAP;
 
@@ -194,7 +195,7 @@ namespace MyGame
 					}
 					if (!small) 
 					{
-						SwinGame.DrawBitmap (GameImage (shipName), colLeft, rowTop);
+						SwinGame.DrawBitmap (GameResources.GameImage (shipName), colLeft, rowTop);
 					} 
 					else 
 					{
@@ -202,7 +203,6 @@ namespace MyGame
 						SwinGame.DrawRectangle (SHIP_OUTLINE_COLOR, colLeft, rowTop, shipWidth, shipHeight);
 					}
 
-				}
 			}
 		}
     
@@ -230,19 +230,19 @@ namespace MyGame
     // '' Draws the background for the current state of the game
     // '' </summary>
     public static void DrawBackground() {
-        switch (CurrentState) {
+        switch (GameController.CurrentState) {
             case GameState.ViewingMainMenu:
             case GameState.ViewingGameMenu:
             case GameState.AlteringSettings:
             case GameState.ViewingHighScores:
-                SwinGame.DrawBitmap(GameImage("Menu"), 0, 0);
+                SwinGame.DrawBitmap(GameResources.GameImage("Menu"), 0, 0);
                 break;
             case GameState.Discovering:
             case GameState.EndingGame:
-                SwinGame.DrawBitmap(GameImage("Discovery"), 0, 0);
+                SwinGame.DrawBitmap(GameResources.GameImage("Discovery"), 0, 0);
                 break;
             case GameState.Deploying:
-                SwinGame.DrawBitmap(GameImage("Deploy"), 0, 0);
+                SwinGame.DrawBitmap(GameResources.GameImage("Deploy"), 0, 0);
                 break;
             default:
                 SwinGame.ClearScreen();
@@ -264,7 +264,7 @@ namespace MyGame
     private static void AddAnimation(int row, int col, string image) {
         Sprite s;
         Bitmap imgObj;
-        imgObj = GameImage(image);
+        imgObj = GameResources.GameImage(image);
         imgObj.SetCellDetails(40, 40, 3, 3, 7);
         AnimationScript animation;
         animation = SwinGame.LoadAnimationScript("splash.txt");
@@ -309,7 +309,7 @@ namespace MyGame
 			for (i = 1; (i
 						<= (ANIMATION_CELLS * FRAMES_PER_CELL)); i++) {
 				UtilityFunctions.UpdateAnimations ();
-				DrawScreen ();
+				GameController.DrawScreen ();
 			}
 		}
     }

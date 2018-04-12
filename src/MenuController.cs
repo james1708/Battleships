@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SwinGameSDK; //checked by David, there may be missing processes
+using SwinGameSDK; 
 
 static class MenuController
 {

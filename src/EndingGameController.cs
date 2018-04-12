@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using SwinGameSDK; //checked by David, all fine
 
 static class EndingGameController
