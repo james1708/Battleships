@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using SwinGameSDK;
 
 namespace BattleShip
@@ -112,18 +111,16 @@ namespace BattleShip
         // '' </remarks>
         private static void DoDeployClick()
         {
-            Point2D mouse;
+            Point2D mouse = default(Point2D);
             mouse = SwinGame.MousePosition();
             // Calculate the row/col clicked
-            int row;
-            int col;
+            int row = 0;
+            int col = 0;
             row = Convert.ToInt32(Math.Floor((mouse.Y / (UtilityFunctions.CELL_HEIGHT + UtilityFunctions.CELL_GAP))));
             col = Convert.ToInt32(Math.Floor(((mouse.X - UtilityFunctions.FIELD_LEFT) / (UtilityFunctions.CELL_WIDTH + UtilityFunctions.CELL_GAP))));
-            if (((row >= 0)
-                        && (row < GameController.HumanPlayer.PlayerGrid.Height)))
+            if (row >= 0 && row < GameController.HumanPlayer.PlayerGrid.Height)
             {
-                if (((col >= 0)
-                            && (col < GameController.HumanPlayer.PlayerGrid.Width)))
+                if (col >= 0 && col < GameController.HumanPlayer.PlayerGrid.Width)
                 {
                     // if in the area try to deploy
                     try
@@ -153,41 +150,35 @@ namespace BattleShip
             if ((_currentDirection == Direction.LeftRight))
             {
                 SwinGame.DrawBitmap(GameResources.GameImage("LeftRightButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
-                SwinGame.DrawText("U/D", Color.Gray, GameResources.GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP);
-                SwinGame.DrawText("L/R", Color.White, GameResources.GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                //SwinGame.DrawText("U/D", Color.Gray, GameResources.GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                //SwinGame.DrawText("L/R", Color.White, GameResources.GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
             }
             else
             {
                 SwinGame.DrawBitmap(GameResources.GameImage("UpDownButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
-                SwinGame.DrawText("U/D", Color.White, GameResources.GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP);
-                SwinGame.DrawText("L/R", Color.Gray, GameResources.GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                //SwinGame.DrawText("U/D", Color.White, GameResources.GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                //SwinGame.DrawText("L/R", Color.Gray, GameResources.GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
             }
 
             // DrawShips
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
             {
-                int i;
-                //Not sure if this works
+                int i = 0;
                 i = (int)sn - 1;
                 if ((i >= 0))
                 {
                     if ((sn == _selectedShip))
                     {
-                        SwinGame.DrawBitmap(GameResources.GameImage("SelectedShip"), SHIPS_LEFT, (SHIPS_TOP
-                                        + (i * SHIPS_HEIGHT)));
-                        SwinGame.FillRectangle(Color.LightBlue, SHIPS_LEFT, (SHIPS_TOP
-                                        + (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT);
+                        SwinGame.DrawBitmap(GameResources.GameImage("SelectedShip"), SHIPS_LEFT, (SHIPS_TOP + (i * SHIPS_HEIGHT)));
+                        //SwinGame.FillRectangle(Color.LightBlue, SHIPS_LEFT, (SHIPS_TOP + (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT);
                     }
-                    else
-                    {
-                        SwinGame.FillRectangle(Color.Gray, SHIPS_LEFT, (SHIPS_TOP
-                                        + (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT);
-                    }
+                    //else
+                    //{
+                        //SwinGame.FillRectangle(Color.Gray, SHIPS_LEFT, (SHIPS_TOP + (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT);
+                    //}
 
-                    SwinGame.DrawRectangle(Color.Black, SHIPS_LEFT, (SHIPS_TOP
-                                    + (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT);
-                    SwinGame.DrawText(sn.ToString(), Color.Black, GameResources.GameFont("Courier"), (SHIPS_LEFT + TEXT_OFFSET), (SHIPS_TOP
-                                    + (i * SHIPS_HEIGHT)));
+                    //SwinGame.DrawRectangle(Color.Black, SHIPS_LEFT, (SHIPS_TOP+ (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT);
+                    //SwinGame.DrawText(sn.ToString(), Color.Black, GameResources.GameFont("Courier"), (SHIPS_LEFT + TEXT_OFFSET), (SHIPS_TOP + (i * SHIPS_HEIGHT)));
                 }
 
             }
@@ -195,11 +186,12 @@ namespace BattleShip
             if (GameController.HumanPlayer.ReadyToDeploy)
             {
                 SwinGame.DrawBitmap(GameResources.GameImage("PlayButton"), PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP);
-                SwinGame.FillRectangle(Color.LightBlue, PLAY_BUTTON_LEFT, PLAY_BUTTON_TOP, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
-                SwinGame.DrawText("PLAY", Color.Black, GameResources.GameFont("Courier"), (PLAY_BUTTON_LEFT + TEXT_OFFSET), PLAY_BUTTON_TOP);
+                //SwinGame.FillRectangle(Color.LightBlue, PLAY_BUTTON_LEFT, PLAY_BUTTON_TOP, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+                //SwinGame.DrawText("PLAY", Color.Black, GameResources.GameFont("Courier"), (PLAY_BUTTON_LEFT + TEXT_OFFSET), PLAY_BUTTON_TOP);
             }
 
             SwinGame.DrawBitmap(GameResources.GameImage("RandomButton"), RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP);
+
             UtilityFunctions.DrawMessage();
         }
 

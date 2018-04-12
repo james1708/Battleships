@@ -105,14 +105,12 @@ namespace BattleShip
 
 		private static void DrawCustomField (ISeaGrid grid, Player thePlayer, bool small, bool showShips, int left, int top, int width, int height, int cellWidth, int cellHeight, int cellGap)
 		{
-			SwinGame.FillRectangle (Color.Blue, left, top, width, height);
+			//SwinGame.FillRectangle (Color.Blue, left, top, width, height);
 			int rowTop;
 			int colLeft;
 			// Draw the grid
 			for (int row = 0; (row <= 9); row++) {
-				rowTop = (top
-							+ ((cellGap + cellHeight)
-							* row));
+				rowTop = (top + ((cellGap + cellHeight) * row));
 				for (int col = 0; (col <= 9); col++) {
 					colLeft = (left
 								+ ((cellGap + cellWidth)
