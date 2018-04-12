@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using SwinGameSDK;
 
-namespace MyGame
+namespace BattleShip
 {
-	public class UtilityFunctions 
+	public static class UtilityFunctions 
 	{
     public const int FIELD_TOP = 122;    
     public const int FIELD_LEFT = 349;    
@@ -16,18 +16,18 @@ namespace MyGame
     public const int CELL_HEIGHT = 40;    
     public const int CELL_GAP = 2;    
     public const int SHIP_GAP = 3;    
-    private Color SMALL_SEA = SwinGame.RGBAColor(6, 60, 94, 255);    
-    private Color SMALL_SHIP = Color.Gray;    
-    private Color SMALL_MISS = SwinGame.RGBAColor(1, 147, 220, 255);    
-    private Color SMALL_HIT = SwinGame.RGBAColor(169, 24, 37, 255);    
-    private Color LARGE_SEA = SwinGame.RGBAColor(6, 60, 94, 255);    
-    private Color LARGE_SHIP = Color.Gray;    
-    private Color LARGE_MISS = SwinGame.RGBAColor(1, 147, 220, 255);    
-    private Color LARGE_HIT = SwinGame.RGBAColor(252, 2, 3, 255);    
-    private Color OUTLINE_COLOR = SwinGame.RGBAColor(5, 55, 88, 255);    
-    private Color SHIP_FILL_COLOR = Color.Gray;    
-    private Color SHIP_OUTLINE_COLOR = Color.White;    
-    private Color MESSAGE_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);    
+    private static Color SMALL_SEA = SwinGame.RGBAColor(6, 60, 94, 255);    
+    private static Color SMALL_SHIP = Color.Gray;    
+    private static Color SMALL_MISS = SwinGame.RGBAColor(1, 147, 220, 255);    
+    private static Color SMALL_HIT = SwinGame.RGBAColor(169, 24, 37, 255);    
+    private static Color LARGE_SEA = SwinGame.RGBAColor(6, 60, 94, 255);
+    private static Color LARGE_SHIP = Color.Grey;  
+    private static Color LARGE_MISS = SwinGame.RGBAColor(1, 147, 220, 255);    
+    private static Color LARGE_HIT = SwinGame.RGBAColor(252, 2, 3, 255);    
+    private static Color OUTLINE_COLOR = SwinGame.RGBAColor(5, 55, 88, 255);    
+    private static Color SHIP_FILL_COLOR = Color.Gray;    
+    private static Color SHIP_OUTLINE_COLOR = Color.White;    
+    private static Color MESSAGE_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);    
     public const int ANIMATION_CELLS = 7;    
     public const int FRAMES_PER_CELL = 8;
     
@@ -117,19 +117,19 @@ namespace MyGame
 					colLeft = (left
 								+ ((cellGap + cellWidth)
 								* col));
-					Color fillColor;
+					Color fillColor = default(Color);
 					bool draw;
 					draw = true;
 					switch (grid[row, col]) {
-					case TileView.Ship:
-						draw = false;
-						if (small) {
-							fillColor = _SMALL_SHIP;
-						} else {
-							fillColor = _LARGE_SHIP;
-						}
+					//case TileView.Ship:
+						//draw = false;
+						//if (small) {
+						//	fillColor = SMALL_SHIP;
+						//} else {
+							//fillColor = LARGE_SHIP;
+						//}
 
-						break;
+						//break;
 					case TileView.Miss:
 						if (small) {
 							fillColor = SMALL_MISS;
@@ -206,14 +206,14 @@ namespace MyGame
 			}
 		}
     
-    private string _message;
+    private static string _message;
     
     // '' <summary>
     // '' The message to display
     // '' </summary>
     // '' <value>The message to display</value>
     // '' <returns>The message to display</returns>
-    public string Message {
+    public static string Message {
         get {
             return _message;
         }
@@ -223,7 +223,7 @@ namespace MyGame
     }
     
     public static void DrawMessage() {
-        SwinGame.DrawText(Message, MESSAGE_COLOR, GameFont("Courier"), FIELD_LEFT, MESSAGE_TOP);
+        SwinGame.DrawText(Message, MESSAGE_COLOR, GameResources.GameFont("Courier"), FIELD_LEFT, MESSAGE_TOP);
     }
     
     // '' <summary>
@@ -259,7 +259,7 @@ namespace MyGame
         UtilityFunctions.AddAnimation(row, col, "Splash");
     }
     
-    private List<Sprite> _Animations = new List<Sprite>();
+    private static List<Sprite> _Animations = new List<Sprite>();
     
     private static void AddAnimation(int row, int col, string image) {
         Sprite s;
@@ -283,7 +283,7 @@ namespace MyGame
         List<Sprite> ended = new List<Sprite>();
         foreach (Sprite s in _Animations) {
             SwinGame.UpdateSprite(s);
-            if (s.animationHasEnded) {
+            if (s.AnimationHasEnded) {
                 ended.Add(s);
             }
             
@@ -306,8 +306,8 @@ namespace MyGame
 		public static void DrawAnimationSequence ()
 		{
 			int i;
-			for (i = 1; (i
-						<= (ANIMATION_CELLS * FRAMES_PER_CELL)); i++) {
+			for (i = 1; (i <= (ANIMATION_CELLS * FRAMES_PER_CELL)); i++)
+            {
 				UtilityFunctions.UpdateAnimations ();
 				GameController.DrawScreen ();
 			}

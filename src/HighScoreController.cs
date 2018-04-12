@@ -86,7 +86,7 @@ static class HighScoreController
         if (_Scores.Count == 0)
             LoadScores();
 		
-        SwinGame.DrawText("   High Scores   ", Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
+        SwinGame.DrawText("   High Scores   ", Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
         
 		int i;
        

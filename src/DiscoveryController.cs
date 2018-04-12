@@ -1,58 +1,61 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SwinGameSDK; //checked by David and Sam, all good
+using SwinGameSDK;
 
-static class DiscoveryController
+namespace BattleShip
 {
-    public static void HandleDiscoveryInput()
+    static class DiscoveryController
     {
-		if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE))
+        public static void HandleDiscoveryInput()
         {
-            GameController.AddNewState(GameState.ViewingGameMenu);
-        }
-
-        if (SwinGame.MouseClicked(MouseButton.LeftButton))
-        {
-            DoAttack();
-        }
-    }
-
-    private static void DoAttack()
-    {
-        Point2D mouse;
-        mouse = SwinGame.MousePosition();
-        int row, col;
-        row = Convert.ToInt32(Math.Floor((mouse.Y - FIELD_TOP) / (CELL_HEIGHT + CELL_GAP)));
-        col = Convert.ToInt32(Math.Floor((mouse.X - FIELD_LEFT) / (CELL_WIDTH + CELL_GAP)));
-        if (row >= 0 & row < HumanPlayer.EnemyGrid.Height)
-        {
-            if (col >= 0 & col < HumanPlayer.EnemyGrid.Width)
+            if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE))
             {
-                Attack(row, col);
+                GameController.AddNewState(GameState.ViewingGameMenu);
+            }
+
+            if (SwinGame.MouseClicked(MouseButton.LeftButton))
+            {
+                DoAttack();
             }
         }
-    }
 
-    public static void DrawDiscovery()
-    {
-        const int SCORES_LEFT = 172;
-        const int SHOTS_TOP = 157;
-        const int HITS_TOP = 206;
-        const int SPLASH_TOP = 256;
-        if ((SwinGame.KeyDown(KeyCode.VK_LSHIFT) | SwinGame.KeyDown(KeyCode.VK_RSHIFT)) & SwinGame.KeyDown(KeyCode.VK_C))
+        private static void DoAttack()
         {
-            DrawField(HumanPlayer.EnemyGrid, ComputerPlayer, true);
-        }
-        else
-        {
-            DrawField(HumanPlayer.EnemyGrid, ComputerPlayer, false);
+            Point2D mouse;
+            mouse = SwinGame.MousePosition();
+            int row, col;
+            row = Convert.ToInt32(Math.Floor((mouse.Y - UtilityFunctions.FIELD_TOP) / (UtilityFunctions.CELL_HEIGHT + UtilityFunctions.CELL_GAP)));
+            col = Convert.ToInt32(Math.Floor((mouse.X - UtilityFunctions.FIELD_LEFT) / (UtilityFunctions.CELL_WIDTH + UtilityFunctions.CELL_GAP)));
+            if (row >= 0 & row < GameController.HumanPlayer.EnemyGrid.Height)
+            {
+                if (col >= 0 & col < GameController.HumanPlayer.EnemyGrid.Width)
+                {
+                    GameController.Attack(row, col);
+                }
+            }
         }
 
-        DrawSmallField(HumanPlayer.PlayerGrid, HumanPlayer);
-        DrawMessage();
-        SwinGame.DrawText(HumanPlayer.Shots.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, SHOTS_TOP);
-        SwinGame.DrawText(HumanPlayer.Hits.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, HITS_TOP);
-        SwinGame.DrawText(HumanPlayer.Missed.ToString(), Color.White, GameFont("Menu"), SCORES_LEFT, SPLASH_TOP);
+        public static void DrawDiscovery()
+        {
+            const int SCORES_LEFT = 172;
+            const int SHOTS_TOP = 157;
+            const int HITS_TOP = 206;
+            const int SPLASH_TOP = 256;
+            if ((SwinGame.KeyDown(KeyCode.vk_LSHIFT) | SwinGame.KeyDown(KeyCode.vk_RSHIFT)) & SwinGame.KeyDown(KeyCode.vk_c))
+            {
+                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, GameController.ComputerPlayer, true);
+            }
+            else
+            {
+                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, GameController.ComputerPlayer, false);
+            }
+
+            UtilityFunctions.DrawSmallField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer);
+            UtilityFunctions.DrawMessage();
+            SwinGame.DrawText(GameController.HumanPlayer.Shots.ToString(), Color.White, GameResources.GameFont("Menu"), SCORES_LEFT, SHOTS_TOP);
+            SwinGame.DrawText(GameController.HumanPlayer.Hits.ToString(), Color.White, GameResources.GameFont("Menu"), SCORES_LEFT, HITS_TOP);
+            SwinGame.DrawText(GameController.HumanPlayer.Missed.ToString(), Color.White, GameResources.GameFont("Menu"), SCORES_LEFT, SPLASH_TOP);
+        }
     }
 }
