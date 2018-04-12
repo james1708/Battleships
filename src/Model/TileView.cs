@@ -1,7 +1,10 @@
-public enum TileView
+namespace BattleShip
 {
-    Sea,
-    Miss,
-    Ship,
-    Hit
+    public enum TileView
+    {
+        Sea,
+        Miss,
+        Ship,
+        Hit
+    }
 }

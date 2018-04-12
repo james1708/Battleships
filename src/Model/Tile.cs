@@ -1,120 +1,124 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-public class Tile
+
+namespace BattleShip
 {
-    private readonly int _RowValue;
-    private readonly int _ColumnValue;
-    private Ship _Ship = null;
-    private bool _Shot = false;
-
-    public bool Shot
+    public class Tile
     {
-        get
-        {
-            return _Shot;
-        }
+        private readonly int _RowValue;
+        private readonly int _ColumnValue;
+        private Ship _Ship = null;
+        private bool _Shot = false;
 
-        set
+        public bool Shot
         {
-            _Shot = value;
-        }
-    }
-
-    public int Row
-    {
-        get
-        {
-            return _RowValue;
-        }
-    }
-
-    public int Column
-    {
-        get
-        {
-            return _ColumnValue;
-        }
-    }
-
-    public Ship Ship
-    {
-        get
-        {
-            return _Ship;
-        }
-
-        set
-        {
-            if (_Ship == null)
+            get
             {
-                _Ship = value;
-                if (value != null)
+                return _Shot;
+            }
+
+            set
+            {
+                _Shot = value;
+            }
+        }
+
+        public int Row
+        {
+            get
+            {
+                return _RowValue;
+            }
+        }
+
+        public int Column
+        {
+            get
+            {
+                return _ColumnValue;
+            }
+        }
+
+        public Ship Ship
+        {
+            get
+            {
+                return _Ship;
+            }
+
+            set
+            {
+                if (_Ship == null)
                 {
-                    _Ship.AddTile(this);
+                    _Ship = value;
+                    if (value != null)
+                    {
+                        _Ship.AddTile(this);
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("There is already a ship at [" + Row + ", " + Column + "]");
+                }
+            }
+        }
+
+        public Tile(int row, int col, Ship ship)
+        {
+            _RowValue = row;
+            _ColumnValue = col;
+            _Ship = ship;
+        }
+
+        public void ClearShip()
+        {
+            _Ship = null;
+        }
+
+        public TileView View
+        {
+            get
+            {
+                if (_Ship == null)
+                {
+                    if (_Shot)
+                    {
+                        return TileView.Miss;
+                    }
+                    else
+                    {
+                        return TileView.Sea;
+                    }
+                }
+                else
+                {
+                    if (_Shot)
+                    {
+                        return TileView.Hit;
+                    }
+                    else
+                    {
+                        return TileView.Ship;
+                    }
+                }
+            }
+        }
+
+        internal void Shoot()
+        {
+            if ((false == Shot))
+            {
+                Shot = true;
+                if (_Ship != null)
+                {
+                    _Ship.Hit();
                 }
             }
             else
             {
-                throw new InvalidOperationException("There is already a ship at [" + Row + ", " + Column + "]");
+                throw new ApplicationException("You have already shot this square");
             }
-        }
-    }
-
-    public Tile(int row, int col, Ship ship)
-    {
-        _RowValue = row;
-        _ColumnValue = col;
-        _Ship = ship;
-    }
-
-    public void ClearShip()
-    {
-        _Ship = null;
-    }
-
-    public TileView View
-    {
-        get
-        {
-            if (_Ship == null)
-            {
-                if (_Shot)
-                {
-                    return TileView.Miss;
-                }
-                else
-                {
-                    return TileView.Sea;
-                }
-            }
-            else
-            {
-                if (_Shot)
-                {
-                    return TileView.Hit;
-                }
-                else
-                {
-                    return TileView.Ship;
-                }
-            }
-        }
-    }
-
-    internal void Shoot()
-    {
-        if ((false == Shot))
-        {
-            Shot = true;
-            if (_Ship != null)
-            {
-                _Ship.Hit();
-            }
-        }
-        else
-        {
-            throw new ApplicationException("You have already shot this square");
         }
     }
 }

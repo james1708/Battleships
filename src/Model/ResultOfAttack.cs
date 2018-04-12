@@ -1,9 +1,11 @@
-
-public enum ResultOfAttack
+namespace BattleShip
 {
-    Hit,
-    Miss,
-    Destroyed,
-    ShotAlready,
-    GameOver
+    public enum ResultOfAttack
+    {
+        Hit,
+        Miss,
+        Destroyed,
+        ShotAlready,
+        GameOver
+    }
 }

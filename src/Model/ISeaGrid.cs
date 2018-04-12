@@ -1,15 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-public interface ISeaGrid {
 
-	int Width { get; }
+namespace BattleShip
+{
+    public interface ISeaGrid
+    {
 
-	int Height { get; }
+        int Width { get; }
 
-	event EventHandler Changed;
-	
-	TileView this[int row, int column] { get; }
-	
-	AttackResult HitTile(int row, int col);
+        int Height { get; }
+
+        event EventHandler Changed;
+
+        TileView this[int row, int column] { get; }
+
+        AttackResult HitTile(int row, int col);
+    }
 }
