@@ -3,10 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using SwinGameSDK;
 
+/*<summary>
+*The battle phase is handled by the DiscoveryController.
+*</summary>
+*/
 namespace BattleShip
 {
     static class DiscoveryController
     {
+		/*<summary>
+		*Handles input during the discovery phase of the game.
+		*</summary>
+		*<remarks>
+		*Escape opens the game menu. Clicking the mouse will
+		*attack a location.
+		*</remarks>
+		*/
         public static void HandleDiscoveryInput()
         {
             if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE))
@@ -19,11 +31,18 @@ namespace BattleShip
                 DoAttack();
             }
         }
-
+		
+		/*
+		*<summary>
+		*Attack the location that the mouse if over.
+		*</summary>
+		*/
         private static void DoAttack()
         {
             Point2D mouse = default(Point2D);
             mouse = SwinGame.MousePosition();
+			
+			//calculate the row/col clicked
             int row = 0;
             int col = 0;
             row = Convert.ToInt32(Math.Floor((mouse.Y - UtilityFunctions.FIELD_TOP) / (UtilityFunctions.CELL_HEIGHT + UtilityFunctions.CELL_GAP)));
@@ -36,7 +55,11 @@ namespace BattleShip
                 }
             }
         }
-
+		
+		/*<summary>
+		*Draws the game during the attack phase
+		*</summary>
+		*/
         public static void DrawDiscovery()
         {
             const int SCORES_LEFT = 172;

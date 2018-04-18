@@ -2,7 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SwinGameSDK;
-
+/*<summary>
+*This includes a number of utility methods for
+*drawing and interacting with the Mouse.
+*</summary>
+*/
 namespace BattleShip
 {
 	public static class UtilityFunctions 
@@ -31,15 +35,16 @@ namespace BattleShip
     public const int ANIMATION_CELLS = 7;    
     public const int FRAMES_PER_CELL = 8;
     
-    // '' <summary>
-    // '' Determines if the mouse is in a given rectangle.
-    // '' </summary>
-    // '' <param name="x">the x location to check</param>
-    // '' <param name="y">the y location to check</param>
-    // '' <param name="w">the width to check</param>
-    // '' <param name="h">the height to check</param>
-    // '' <returns>true if the mouse is in the area checked</returns>
-    public static bool IsMouseInRectangle(int x, int y, int w, int h) {
+    /*<summary>
+    *Determines if the mouse is in a given rectangle.
+    *</summary>
+    *<param name="x">the x location to check</param>
+    *<param name="y">the y location to check</param>
+    *<param name="w">the width to check</param>
+    *<param name="h">the height to check</param>
+    *<returns>true if the mouse is in the area checked</returns>
+    */
+	public static bool IsMouseInRectangle(int x, int y, int w, int h) {
         Point2D mouse;
         bool result = false;
         mouse = SwinGame.MousePosition();
@@ -59,24 +64,23 @@ namespace BattleShip
         return result;
     }
     
-    // '' <summary>
-    // '' Draws a large field using the grid and the indicated player's ships.
-    // '' </summary>
-    // '' <param name="grid">the grid to draw</param>
-    // '' <param name="thePlayer">the players ships to show</param>
-    // '' <param name="showShips">indicates if the ships should be shown</param>
-
+    /*<summary>
+    *Draws a large field using the grid and the indicated player's ships.
+    *</summary>
+    *<param name="grid">the grid to draw</param>
+    *<param name="thePlayer">the players ships to show</param>
+    *<param name="showShips">indicates if the ships should be shown</param>
+	*/
     public static void DrawField(ISeaGrid grid, Player thePlayer, bool showShips) {
         UtilityFunctions.DrawCustomField(grid, thePlayer, false, showShips, FIELD_LEFT, FIELD_TOP, FIELD_WIDTH, FIELD_HEIGHT, CELL_WIDTH, CELL_HEIGHT, CELL_GAP);
     }
     
-    // '' <summary>
-    // '' Draws a small field, showing the attacks made and the locations of the player's ships
-    // '' </summary>
-    // '' <param name="grid">the grid to show</param>
-    // '' <param name="thePlayer">the player to show the ships of</param>
-
-
+    /*<summary>
+    *Draws a small field, showing the attacks made and the locations of the player's ships
+    *</summary>
+    *<param name="grid">the grid to show</param>
+    *<param name="thePlayer">the player to show the ships of</param>
+	*/
     public static void DrawSmallField(ISeaGrid grid, Player thePlayer) {
         const int SMALL_FIELD_TOP = 373;
         int SMALL_FIELD_LEFT = 39;
@@ -88,21 +92,21 @@ namespace BattleShip
         UtilityFunctions.DrawCustomField(grid, thePlayer, true, true, SMALL_FIELD_LEFT, SMALL_FIELD_TOP, SMALL_FIELD_WIDTH, SMALL_FIELD_HEIGHT, SMALL_FIELD_CELL_WIDTH, SMALL_FIELD_CELL_HEIGHT, SMALL_FIELD_CELL_GAP);
     }
 
-		// '' <summary>
-		// '' Draws the player's grid and ships.
-		// '' </summary>
-		// '' <param name="grid">the grid to show</param>
-		// '' <param name="thePlayer">the player to show the ships of</param>
-		// '' <param name="small">true if the small grid is shown</param>
-		// '' <param name="showShips">true if ships are to be shown</param>
-		// '' <param name="left">the left side of the grid</param>
-		// '' <param name="top">the top of the grid</param>
-		// '' <param name="width">the width of the grid</param>
-		// '' <param name="height">the height of the grid</param>
-		// '' <param name="cellWidth">the width of each cell</param>
-		// '' <param name="cellHeight">the height of each cell</param>
-		// '' <param name="cellGap">the gap between the cells</param>
-
+		/*<summary>
+		*Draws the player's grid and ships.
+		*</summary>
+		*<param name="grid">the grid to show</param>
+		*<param name="thePlayer">the player to show the ships of</param>
+		*<param name="small">true if the small grid is shown</param>
+		*<param name="showShips">true if ships are to be shown</param>
+		*<param name="left">the left side of the grid</param>
+		*<param name="top">the top of the grid</param>
+		*<param name="width">the width of the grid</param>
+		*<param name="height">the height of the grid</param>
+		*<param name="cellWidth">the width of each cell</param>
+		*<param name="cellHeight">the height of each cell</param>
+		*<param name="cellGap">the gap between the cells</param>
+		*/
 		private static void DrawCustomField (ISeaGrid grid, Player thePlayer, bool small, bool showShips, int left, int top, int width, int height, int cellWidth, int cellHeight, int cellGap)
 		{
 			//SwinGame.FillRectangle (Color.Blue, left, top, width, height);
@@ -206,12 +210,13 @@ namespace BattleShip
     
     private static string _message;
     
-    // '' <summary>
-    // '' The message to display
-    // '' </summary>
-    // '' <value>The message to display</value>
-    // '' <returns>The message to display</returns>
-    public static string Message {
+    /*<summary>
+    *The message to display
+    *</summary>
+    *<value>The message to display</value>
+    *<returns>The message to display</returns>
+    */
+	public static string Message {
         get {
             return _message;
         }
@@ -220,14 +225,19 @@ namespace BattleShip
         }
     }
     
+	/*<summary>
+	*Draws the message to the screen
+	*</screens>
+	*/
     public static void DrawMessage() {
         SwinGame.DrawText(Message, MESSAGE_COLOR, GameResources.GameFont("Courier"), FIELD_LEFT, MESSAGE_TOP);
     }
     
-    // '' <summary>
-    // '' Draws the background for the current state of the game
-    // '' </summary>
-    public static void DrawBackground() {
+    /*<summary>
+    *Draws the background for the current state of the game
+    *</summary>
+    */
+	public static void DrawBackground() {
         switch (GameController.CurrentState) {
             case GameState.ViewingMainMenu:
             case GameState.ViewingGameMenu:

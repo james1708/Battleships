@@ -4,19 +4,36 @@ using System.Collections;
 using System.Collections.Generic;
 using SwinGameSDK;
 
+/*<summary>
+*Controls displaying and collecting high score data.
+*</summary>
+*<remarks>
+*Data is saved to a file.
+*</remarks>
+*/
 namespace BattleShip
 {
     static class HighScoreController
     {
         private const int NAME_WIDTH = 3;
         private const int SCORES_LEFT = 490;
-
-
-        private struct Score : IComparable
+		/*<summary>
+		*The score structure is used to keep the name and
+		*score of the top players together.
+		*</summary>
+        */
+		private struct Score : IComparable
         {
             public string Name;
             public int Value;
-            public int CompareTo(object obj)
+			
+			/*<summary>
+			*Allows scores to be compared to facilitate sorting
+			*</summary>
+			*<param name="obj">the object to compare to</param>
+			*<returns>a value that indicates the sort order</returns>
+            */
+			public int CompareTo(object obj)
             {
                 if (obj is Score)
                 {
@@ -32,7 +49,17 @@ namespace BattleShip
 
         private static List<Score> _Scores = new List<Score>();
 
-        private static void LoadScores()
+		/*<summary>
+		*Loads the scores from the highscores text file.
+		*</summary>
+		*<remarks>
+		*The format is
+		*# of scores
+		*NNNSSS
+		*Where NNN is the name and SSS is the score
+    	*</remarks
+        */
+		private static void LoadScores()
         {
             string filename;
             filename = SwinGame.PathToResource("highscores.txt");
@@ -40,6 +67,7 @@ namespace BattleShip
             StreamReader input;
             input = new StreamReader(filename);
 
+			//read in the # of scores
             int numScores;
             numScores = Convert.ToInt32(input.ReadLine());
 
@@ -61,7 +89,18 @@ namespace BattleShip
             input.Close();
         }
 
-        private static void SaveScores()
+		/*<summary>
+		*Saves the scores back to the highscores text file.
+		*</summary>
+		*<remarks>
+		*The format is
+		*# of scores
+		*NNNSSS
+		*
+		*Where NNN is the name and SSS is the score
+		*</remarks>
+		*/
+		private static void SaveScores()
         {
             string filename;
             filename = SwinGame.PathToResource("highscores.txt");
@@ -79,7 +118,11 @@ namespace BattleShip
             output.Close();
         }
 
-        public static void DrawHighScores()
+		/*<summary>
+		*Draws the high scores to the screen.
+		*</summary>
+        */
+		public static void DrawHighScores()
         {
             const int SCORES_HEADING = 40;
             const int SCORES_TOP = 80;
@@ -90,12 +133,14 @@ namespace BattleShip
 
             SwinGame.DrawText("   High Scores   ", Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
 
+			//for all of the scores
             int i;
 
             for (i = 0; i <= _Scores.Count - 1; i++)
             {
                 Score s;
                 s = _Scores[i];
+				//for scores 1 - 9 use 01 - 09
                 if (i < 9)
                 {
                     SwinGame.DrawText(" " + (i + 1) + ":   " + s.Name + "   " + s.Value, Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP);
@@ -107,7 +152,12 @@ namespace BattleShip
             }
         }
 
-        public static void HandleHighScoreInput()
+		/*<summary>
+		*Handles the user input during the top score screen.
+		*</summary>
+		*<remarks></remarks>
+        */
+		public static void HandleHighScoreInput()
         {
             if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.vk_ESCAPE) || SwinGame.KeyTyped(KeyCode.vk_RETURN))
             {
@@ -115,6 +165,14 @@ namespace BattleShip
             }
         }
 
+		/*<summary>
+		*Read the user's name for their highsSwinGame.
+		*</summary>
+		*<param name="value">the player's sSwinGame.</param>
+		*<remarks>
+		*This verifies if the score is a highsSwinGame.
+		*</remarks>
+		*/
         public static void ReadHighScore(int value)
         {
             const int ENTRY_TOP = 500;
@@ -122,6 +180,7 @@ namespace BattleShip
             if (_Scores.Count == 0)
                 LoadScores();
 
+			//is it a high score
             if (value > _Scores[_Scores.Count - 1].Value)
             {
                 Score s = new Score();
@@ -134,6 +193,7 @@ namespace BattleShip
 
                 SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameResources.GameFont("Courier"), x, ENTRY_TOP);
 
+				//read the text from the user
                 while (SwinGame.ReadingText())
                 {
                     SwinGame.ProcessEvents();

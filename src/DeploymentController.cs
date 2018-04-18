@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using SwinGameSDK;
 
+
+/*<summary>
+*The DeploymentController controls the players actions
+*during the deployment phase.
+*</summary> 
+*/
 namespace BattleShip
 {
 
@@ -37,14 +43,15 @@ namespace BattleShip
 
         private static ShipName _selectedShip = ShipName.Tug;
 
-        // '' <summary>
-        // '' Handles user input for the Deployment phase of the game.
-        // '' </summary>
-        // '' <remarks>
-        // '' Involves selecting the ships, deloying ships, changing the direction
-        // '' of the ships to add, randomising deployment, end then ending
-        // '' deployment
-        // '' </remarks>
+		/*<summary>
+        *Handles user input for the Deployment phase of the game.
+        *</summary>
+        *<remarks>
+        *Involves selecting the ships, deloying ships, changing the direction
+        *of the ships to add, randomising deployment, end then ending
+        *deployment
+        *</remarks>
+		*/
         public static void HandleDeploymentInput()
         {
             if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE))
@@ -101,14 +108,15 @@ namespace BattleShip
 
         }
 
-        // '' <summary>
-        // '' The user has clicked somewhere on the screen, check if its is a deployment and deploy
-        // '' the current ship if that is the case.
-        // '' </summary>
-        // '' <remarks>
-        // '' If the click is in the grid it deploys to the selected location
-        // '' with the indicated direction
-        // '' </remarks>
+        /*<summary>
+        *The user has clicked somewhere on the screen, check if its is a deployment and deploy
+		*the current ship if that is the case.
+		*</summary>
+		*<remarks>
+		*If the click is in the grid it deploys to the selected location
+		*with the indicated direction
+		*</remarks>
+		*/
         private static void DoDeployClick()
         {
             Point2D mouse = default(Point2D);
@@ -139,11 +147,12 @@ namespace BattleShip
 
         }
 
-        // '' <summary>
-        // '' Draws the deployment screen showing the field and the ships
-        // '' that the player can deploy.
-        // '' </summary>
-        public static void DrawDeployment()
+        /*<summary>
+		*Draws the deployment screen showing the field and the ships
+        *that the player can deploy.
+        *</summary>
+        */
+		public static void DrawDeployment()
         {
             UtilityFunctions.DrawField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer, true);
             // Draw the Left/Right and Up/Down buttons
@@ -195,11 +204,11 @@ namespace BattleShip
             UtilityFunctions.DrawMessage();
         }
 
-        // '' <summary>
-        // '' Gets the ship that the mouse is currently over in the selection panel.
-        // '' </summary>
-        // '' <returns>The ship selected or none</returns>
-
+        /*<summary>
+        *Gets the ship that the mouse is currently over in the selection panel.
+        *</summary>
+        *<returns>The ship selected or none</returns>
+		*/
         private static ShipName GetShipMouseIsOver()
         {
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))

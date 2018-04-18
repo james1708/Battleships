@@ -107,11 +107,12 @@ namespace BattleShip
 
         private static SoundEffect _StartSound;
 
-        // '' <summary>
-        // '' The Resources Class stores all of the Games Media Resources, such as Images, Fonts
-        // '' Sounds, Music.
-        // '' </summary>
-        public static void LoadResources()
+        /*<summary>
+        *The Resources Class stores all of the Games Media Resources, such as Images, Fonts
+        *Sounds, Music.
+        *</summary>
+        */
+		public static void LoadResources()
         {
             int width;
             int height;
