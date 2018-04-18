@@ -2,6 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+/* <summary>
+* The names of all of the ships in the gam
+* </summary>
+* <remarks></remarks>
+*/
 namespace BattleShip
 {
     public enum ShipName
