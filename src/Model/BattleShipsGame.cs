@@ -103,12 +103,12 @@ namespace BattleShip
             }
 
             AttackCompleted(this, newAttack);
+
             // change player if the last hit was a miss
-            if ((newAttack.Value == ResultOfAttack.Miss))
+            if (newAttack.Value == ResultOfAttack.Miss)
             {
                 _playerIndex = otherPlayer;
             }
-
             return newAttack;
         }
     }

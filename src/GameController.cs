@@ -157,8 +157,7 @@ namespace BattleShip
 		
         private static void AttackCompleted(object sender, AttackResult result)
         {
-            bool isHuman;
-            isHuman = (_theGame.Player == HumanPlayer);
+            bool isHuman = (_theGame.Player == HumanPlayer);
             if (isHuman)
             {
                 UtilityFunctions.Message = ("You " + result.ToString());
@@ -175,8 +174,11 @@ namespace BattleShip
                     Audio.PlaySoundEffect(GameResources.GameSound("Sink"));
                     break;
                 case ResultOfAttack.GameOver:
+                    //potentially remove this as it gets played twice if the player wins
                     GameController.PlayHitSequence(result.Row, result.Column, isHuman);
-                    Audio.PlaySoundEffect(GameResources.GameSound("Sink"));
+
+                    //Audio.PlaySoundEffect(GameResources.GameSound("Sink"));
+
                     while (Audio.SoundEffectPlaying(GameResources.GameSound("Sink")))
                     {
                         SwinGame.Delay(10);
@@ -266,12 +268,12 @@ namespace BattleShip
             switch (result.Value)
             {
                 case ResultOfAttack.Miss:
-                    if ((_theGame.Player == ComputerPlayer))
+                    if (_theGame.Player == ComputerPlayer)
                     {
                         GameController.AIAttack();
                     }
-
                     break;
+                    //hitting does not cause the result to switch to other player
                 case ResultOfAttack.GameOver:
                     GameController.SwitchState(GameState.EndingGame);
                     break;

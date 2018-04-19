@@ -138,7 +138,7 @@ namespace BattleShip
             {
                 Delay();
 
-                GenerateCoords(ref row, ref column); //generate coordinates for shit
+                GenerateCoords(ref row, ref column); //generate coordinates for shot
                 result = _game.Shoot(row, column); //take shot
                 ProcessShot(row, column, result);
             } while (result.Value != ResultOfAttack.Miss && result.Value != ResultOfAttack.GameOver && !SwinGame.WindowCloseRequested());

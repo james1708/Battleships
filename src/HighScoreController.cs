@@ -183,17 +183,22 @@ namespace BattleShip
 			//is it a high score
             if (value > _Scores[_Scores.Count - 1].Value)
             {
+                //used to get the correct area for the highscore input, X's are just used to force spacing
+                Rectangle rec = new Rectangle();
+                rec.X = SCORES_LEFT + SwinGame.TextWidth(GameResources.GameFont("Courier"), "Name:");
+                rec.Y = ENTRY_TOP;
+                rec.Height = SwinGame.TextHeight(GameResources.GameFont("Courier"), "XXX");
+                rec.Width = SwinGame.TextWidth(GameResources.GameFont("Courier"), "XXXXX");
+
                 Score s = new Score();
                 s.Value = value;
 
                 GameController.AddNewState(GameState.ViewingHighScores);
 
-                int x;
-                x = SCORES_LEFT + SwinGame.TextWidth(GameResources.GameFont("Courier"), "Name: ");
+                SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameResources.GameFont("Courier"), rec);
+                //SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameResources.GameFont("Courier"), x, ENTRY_TOP);
 
-                SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameResources.GameFont("Courier"), x, ENTRY_TOP);
-
-				//read the text from the user
+                //read the text from the user
                 while (SwinGame.ReadingText())
                 {
                     SwinGame.ProcessEvents();
@@ -206,7 +211,7 @@ namespace BattleShip
 				//convert the inputted string to ascii and to uppercase
 				s.Name = SwinGame.TextReadAsASCII().ToUpper();
 
-                if (s.Name.Length <= 3)
+                if (s.Name.Length < 3)
                 {
                     s.Name = s.Name + new string(Convert.ToChar(" "), 3 - s.Name.Length);
                 }
