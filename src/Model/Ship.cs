@@ -15,6 +15,7 @@ namespace BattleShip
 {
     public class Ship
     {
+        //COMMENT HERE
         private ShipName _shipName;
         private int _sizeOfShip;
         private int _hitsTaken = 0;
@@ -85,6 +86,12 @@ namespace BattleShip
             }
         }
 
+        /* <summary>
+        * The column location of the ship
+        * </summary>
+        * <value>The topmost location of the ship</value>
+        * <returns>the column of the ship</returns>
+        */
         public int Column
         {
             get
@@ -93,6 +100,12 @@ namespace BattleShip
             }
         }
 
+        /* <summary>
+        * The direction of the ships facing
+        * </summary>
+        * <value>The ships orientation</value>
+        * <returns>Ships orientation</returns>
+        */
         public Direction Direction
         {
             get
@@ -100,6 +113,15 @@ namespace BattleShip
                 return _direction;
             }
         }
+
+        /* <summary>
+        * The properties of the ships initial location, name and size
+        * </summary>
+        * <value>The name of the ship</value>
+        * <value>The tiles it occupies</value>
+        * <value>the size of the ship</value>
+        * <returns>information about the ship and its occupied tiles</returns>
+        */
 
         public Ship(ShipName ship)
         {
@@ -132,6 +154,10 @@ namespace BattleShip
             _tiles.Clear();
         }
 
+        /* <summary>
+         * increments the number of hits taken by a given ship
+         * </summary>
+         */ 
         public void Hit()
         {
             _hitsTaken = _hitsTaken + 1;
@@ -150,6 +176,10 @@ namespace BattleShip
             }
         }
 
+        /* <summary>
+         * IsDestroyed returns if the hits on a ship are equal to the ships size
+         * </summary>
+         */ 
         public bool IsDestroyed
         {
             get

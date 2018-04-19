@@ -58,7 +58,7 @@ namespace BattleShip
                 _enemyGrid = value;
             }
         }
-
+        //COMMENT HERE
         public Player(BattleShipsGame controller)
         {
             _game = controller;
@@ -116,6 +116,7 @@ namespace BattleShip
             }
         }
 
+        //COMMENT HERE
         public bool IsDestroyed
         {
             get
@@ -156,6 +157,7 @@ namespace BattleShip
             }
         }
 
+        //COMMENT HERE
         public int Hits
         {
             get
@@ -178,6 +180,7 @@ namespace BattleShip
             }
         }
 
+        //COMMENT HERE
         public int Score
         {
             get
@@ -259,6 +262,7 @@ namespace BattleShip
             return result;
         }
 
+        //COMMENT HERE
         public virtual void RandomizeDeployment()
         {
             bool placementSuccessful = false;

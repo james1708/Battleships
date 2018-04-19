@@ -16,7 +16,7 @@ namespace BattleShip
 		* AI Player. The use of which determines the difficulty.
 		* </summary>
         */
-		protected class Location
+		protected abstract class Location
         {
             private int _Row;
 

@@ -11,8 +11,16 @@ namespace BattleShip
     public interface ISeaGrid
     {
 
+        /* <summary>
+         * gets the width of the grid
+         * </summary>
+         */ 
         int Width { get; }
 
+        /* <summary>
+         * gets the height of the grid
+         * </summary>
+         */
         int Height { get; }
 
 		/* <summary>

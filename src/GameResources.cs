@@ -45,6 +45,7 @@ namespace BattleShip
             GameResources.NewImage("Splash", "splash.png");
         }
 
+        //Sounds
         private static void LoadSounds()
         {
             GameResources.NewSound("Error", "error.wav");
@@ -56,6 +57,7 @@ namespace BattleShip
             GameResources.NewSound("Lose", "lose.wav");
         }
 
+        //Music
         private static void LoadMusic()
         {
             GameResources.NewMusic("Background", "horrordrone.mp3");
@@ -87,24 +89,20 @@ namespace BattleShip
             return _Music[music];
         }
 
+        //storage for all the game assets
         private static Dictionary<string, Bitmap> _Images = new Dictionary<string, Bitmap>();
-
         private static Dictionary<string, Font> _Fonts = new Dictionary<string, Font>();
-
         private static Dictionary<string, SoundEffect> _Sounds = new Dictionary<string, SoundEffect>();
-
         private static Dictionary<string, Music> _Music = new Dictionary<string, Music>();
 
+        //creating new image (bitmap) objects
         private static Bitmap _Background;
-
         private static Bitmap _Animation;
-
         private static Bitmap _LoaderFull;
-
         private static Bitmap _LoaderEmpty;
-
+        //creating new font object
         private static Font _LoadingFont;
-
+        //creating new soundEffect object
         private static SoundEffect _StartSound;
 
         /*<summary>
@@ -138,6 +136,10 @@ namespace BattleShip
             GameResources.EndLoadingScreen(width, height);
         }
 
+        /*<summary>
+        * Shows the loading screen before the splash screen
+        * </summary>
+        */
         private static void ShowLoadingScreen()
         {
             _Background = SwinGame.LoadBitmap(SwinGame.PathToResource("SplashBack.png", ResourceKind.BitmapResource));
@@ -152,6 +154,10 @@ namespace BattleShip
             GameResources.PlaySwinGameIntro();
         }
 
+        /* <summary>
+         * Plays the swinGame splash screen
+         * </summary> 
+         */
         private static void PlaySwinGameIntro()
         {
             const int ANI_CELL_COUNT = 11;
@@ -170,6 +176,10 @@ namespace BattleShip
             SwinGame.Delay(1500);
         }
 
+        /* <summary>
+         * Shows the battleship loading screen
+         * </summary>
+         */
         private static void ShowMessage(string message, int number)
         {
             const int BG_Y = 453;
@@ -196,6 +206,10 @@ namespace BattleShip
             SwinGame.ProcessEvents();
         }
 
+        /* <summary>
+         * Releasing all the resources that where used to display the loading screen
+         * </summary>
+         */ 
         private static void EndLoadingScreen(int width, int height)
         {
             SwinGame.ProcessEvents();
@@ -211,36 +225,64 @@ namespace BattleShip
             SwinGame.ChangeScreenSize(width, height);
         }
 
+        /* <summary>
+         * Adding new fonts to the _Fonts object
+         * </summary>
+         */ 
         private static void NewFont(string fontName, string filename, int size)
         {
             _Fonts.Add(fontName, SwinGame.LoadFont(SwinGame.PathToResource(filename, ResourceKind.FontResource), size));
         }
 
+        /* <summary>
+         * Adding new imagies to the _Image object 
+         * </summary
+         */
         private static void NewImage(string imageName, string filename)
         {
             _Images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(filename, ResourceKind.BitmapResource)));
         }
 
+        /* <summary>
+         * Adding new imagies (bitmaps) to be transparent to the _Image object 
+         * </summary
+         */
         private static void NewTransparentColorImage(string imageName, string fileName, Color transColor)
         {
             _Images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(fileName, ResourceKind.BitmapResource), true, transColor));
         }
 
+        /* <summary>
+         * Adding new imagies to the _Image object 
+         * </summary
+         */
         private static void NewTransparentColourImage(string imageName, string fileName, Color transColor)
         {
             GameResources.NewTransparentColorImage(imageName, fileName, transColor);
         }
 
+        /* <summary>
+         * Adding new sounds to the _Sounds object 
+         * </summary
+         */
         private static void NewSound(string soundName, string filename)
         {
             _Sounds.Add(soundName, Audio.LoadSoundEffect(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
         }
 
+        /* <summary>
+         * Adding new music to the _music object 
+         * </summary
+         */
         private static void NewMusic(string musicName, string filename)
         {
             _Music.Add(musicName, Audio.LoadMusic(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
         }
 
+        /* <summary>
+         * releasing the fonts from the heap
+         * </summary
+         */
         private static void FreeFonts()
         {
             foreach (Font obj in _Fonts.Values)
@@ -250,6 +292,10 @@ namespace BattleShip
 
         }
 
+        /* <summary>
+         * releasing the images from the heap
+         * </summary
+         */
         private static void FreeImages()
         {
             foreach (Bitmap obj in _Images.Values)
@@ -259,6 +305,10 @@ namespace BattleShip
 
         }
 
+        /* <summary>
+         * releasing the sounds from the heap
+         * </summary
+         */
         private static void FreeSounds()
         {
             foreach (SoundEffect obj in _Sounds.Values)
@@ -268,6 +318,10 @@ namespace BattleShip
 
         }
 
+        /* <summary>
+         * releasing the music from the heap
+         * </summary
+         */
         private static void FreeMusic()
         {
             foreach (Music obj in _Music.Values)
@@ -277,6 +331,10 @@ namespace BattleShip
 
         }
 
+        /* <summary>
+         * running all of the release methods to free all the resources from the memory
+         * </summary
+         */
         public static void FreeResources()
         {
             GameResources.FreeFonts();
@@ -287,3 +345,4 @@ namespace BattleShip
         }
     }
 }
+ 

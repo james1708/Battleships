@@ -311,7 +311,7 @@ namespace BattleShip
                     GameController.EndCurrentState();
                     break;
                 case GAME_MENU_SURRENDER_BUTTON:
-                    MenuController.EndCurrentState(); //end game menu
+                    //end game menu
 					GameController.EndCurrentState(); //end game
                     break;
                 case GAME_MENU_QUIT_BUTTON:

@@ -5,7 +5,7 @@ using SwinGameSDK;
 
 /* <summary>
 * The AIMediumPlayer is a type of AIPlayer where it will try and destroy a ship
-* if it has found a ship
+* if it has found a shipD:\Work\DevelopmentProjectOne\TestBattleShips\ProjectTemplate\Model\AIMediumPlayer.cs
 * </summary>
 */
 namespace BattleShip
