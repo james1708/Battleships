@@ -219,9 +219,7 @@ namespace BattleShip
                 // tile is already hit
                 if (_GameTiles[row, col].Shot)
                 {
-                    return new AttackResult(ResultOfAttack.ShotAlready, ("have already attacked ["
-                                    + (col + (","
-                                    + (row + "]!")))), row, col);
+                    return new AttackResult(ResultOfAttack.ShotAlready, ("have already attacked ["+ (col + ("," + (row + "]!")))), row, col);
                 }
 
                 _GameTiles[row, col].Shoot();
