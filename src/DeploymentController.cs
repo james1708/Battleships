@@ -137,7 +137,9 @@ namespace BattleShip
                     }
                     catch (Exception ex)
                     {
-                        Audio.PlaySoundEffect(GameResources.GameSound("Error"));
+                        if(!GameController.Mute)
+                            Audio.PlaySoundEffect(GameResources.GameSound("Error"));
+
                         UtilityFunctions.Message = ex.Message;
                     }
 
@@ -154,19 +156,21 @@ namespace BattleShip
         */
 		public static void DrawDeployment()
         {
+            int textWidth = SwinGame.TextWidth(GameResources.GameFont("Menu"), "XXX");
+            int textHeight = SwinGame.TextHeight(GameResources.GameFont("Menu"), "XXX");
             UtilityFunctions.DrawField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer, true);
             // Draw the Left/Right and Up/Down buttons
             if ((_currentDirection == Direction.LeftRight))
             {
                 SwinGame.DrawBitmap(GameResources.GameImage("LeftRightButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
-                //SwinGame.DrawText("U/D", Color.Gray, GameResources.GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP);
-                //SwinGame.DrawText("L/R", Color.White, GameResources.GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                SwinGame.DrawText("U/D", Color.Gray, GameResources.GameFont("Menu"), UP_DOWN_BUTTON_LEFT + (textWidth / 2), TOP_BUTTONS_TOP - textHeight);
+                SwinGame.DrawText("L/R", Color.White, GameResources.GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT + (textWidth / 2), TOP_BUTTONS_TOP - textHeight);
             }
             else
             {
                 SwinGame.DrawBitmap(GameResources.GameImage("UpDownButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
-                //SwinGame.DrawText("U/D", Color.White, GameResources.GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP);
-                //SwinGame.DrawText("L/R", Color.Gray, GameResources.GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                SwinGame.DrawText("U/D", Color.White, GameResources.GameFont("Menu"), UP_DOWN_BUTTON_LEFT + (textWidth / 2), TOP_BUTTONS_TOP - textHeight);
+                SwinGame.DrawText("L/R", Color.Gray, GameResources.GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT + (textWidth / 2), TOP_BUTTONS_TOP - textHeight);
             }
 
             // DrawShips
@@ -200,7 +204,7 @@ namespace BattleShip
             }
 
             SwinGame.DrawBitmap(GameResources.GameImage("RandomButton"), RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP);
-
+            SwinGame.DrawText("RND", Color.White, GameResources.GameFont("Menu"), RANDOM_BUTTON_LEFT + (textWidth / 2), TOP_BUTTONS_TOP - textHeight);
             UtilityFunctions.DrawMessage();
         }
 

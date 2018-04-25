@@ -43,6 +43,9 @@ namespace BattleShip
             // Explosions
             GameResources.NewImage("Explosion", "explosion.png");
             GameResources.NewImage("Splash", "splash.png");
+            //hit markers
+            GameResources.NewImage("HitMarker", "explosionStill.png");
+            GameResources.NewImage("MissMarker", "splashStill.png");
         }
 
         //Sounds

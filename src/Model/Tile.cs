@@ -14,14 +14,15 @@ namespace BattleShip
         private readonly int _ColumnValue;	//the column value of the tile
         private Ship _Ship = null;			//the ship the tile belongs to
         private bool _Shot = false;			//the tile has been shot at
+        private string[] _CharCoords = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
 
-		/* <summary>
+        /* <summary>
 		* Has the tile been shot?
 		* </summary>
 		* <value>indicate if the tile has been shot</value>
 		* <returns>true if the tile was shot</returns>
         */
-		public bool Shot
+        public bool Shot
         {
             get
             {
@@ -85,7 +86,7 @@ namespace BattleShip
                 }
                 else
                 {
-                    throw new InvalidOperationException("There is already a ship at [" + Row + ", " + Column + "]");
+                    throw new InvalidOperationException("There is already a ship at [" + _CharCoords[Row] + ", " + Column + "]");
                 }
             }
         }
