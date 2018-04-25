@@ -24,6 +24,8 @@ namespace BattleShip
 
         private static AIOption _aiSetting;
 
+        private static bool _mute = false;
+
         /*<summary>
         *Returns the current state of the game, indicating which screen is
         *currently being used
@@ -129,8 +131,9 @@ namespace BattleShip
             {
                 UtilityFunctions.AddExplosion(row, column);
             }
+            if (!_mute)
+                Audio.PlaySoundEffect(GameResources.GameSound("Hit"));
 
-            Audio.PlaySoundEffect(GameResources.GameSound("Hit"));
             UtilityFunctions.DrawAnimationSequence();
         }
 
@@ -140,8 +143,9 @@ namespace BattleShip
             {
                 UtilityFunctions.AddSplash(row, column);
             }
+            if(!_mute)
+                Audio.PlaySoundEffect(GameResources.GameSound("Miss"));
 
-            Audio.PlaySoundEffect(GameResources.GameSound("Miss"));
             UtilityFunctions.DrawAnimationSequence();
         }
 
@@ -171,7 +175,9 @@ namespace BattleShip
             {
                 case ResultOfAttack.Destroyed:
                     GameController.PlayHitSequence(result.Row, result.Column, isHuman);
-                    Audio.PlaySoundEffect(GameResources.GameSound("Sink"));
+                    if(!_mute)
+                        Audio.PlaySoundEffect(GameResources.GameSound("Sink"));
+
                     break;
                 case ResultOfAttack.GameOver:
                     //potentially remove this as it gets played twice if the player wins
@@ -185,15 +191,17 @@ namespace BattleShip
                         SwinGame.RefreshScreen();
                     }
 
-                    if (HumanPlayer.IsDestroyed)
+                    if (HumanPlayer.IsDestroyed && !_mute)
                     {
                         Audio.PlaySoundEffect(GameResources.GameSound("Lose"));
                     }
                     else
                     {
-                        Audio.PlaySoundEffect(GameResources.GameSound("Winner"));
+                        if(!_mute)
+                            Audio.PlaySoundEffect(GameResources.GameSound("Winner"));
                     }
 
+                    //come back here to add the letter/number coordinates
                     break;
                 case ResultOfAttack.Hit:
                     GameController.PlayHitSequence(result.Row, result.Column, isHuman);
@@ -202,7 +210,8 @@ namespace BattleShip
                     GameController.PlayMissSequence(result.Row, result.Column, isHuman);
                     break;
                 case ResultOfAttack.ShotAlready:
-                    Audio.PlaySoundEffect(GameResources.GameSound("Error"));
+                    if(!_mute)
+                        Audio.PlaySoundEffect(GameResources.GameSound("Error"));
                     break;
             }
         }
@@ -399,6 +408,24 @@ namespace BattleShip
         public static void SetDifficulty(AIOption setting)
         {
             _aiSetting = setting;
+        }
+
+        /*<summary>
+        * Toggle the mute value, this is called whenever the player hits the mute button.
+        *</summary>
+        */
+        public static bool MuteSound()
+        {
+            return _mute = !_mute;
+        }
+
+        //mute property to be read by game logic file
+        public static bool Mute
+        {
+            get
+            {
+                return _mute;
+            }
         }
     }
 }

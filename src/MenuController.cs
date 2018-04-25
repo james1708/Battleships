@@ -20,7 +20,7 @@ namespace BattleShip
 		*These are the text captions for the menu items.
 		*</remarks>
 		*/
-        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" } };
+        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "MUTE", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD", "MUTE" } };
         private const int MENU_TOP = 575;
         private const int MENU_LEFT = 30;
         private const int MENU_GAP = 0;
@@ -38,10 +38,12 @@ namespace BattleShip
         private const int SETUP_MENU_EASY_BUTTON = 0;
         private const int SETUP_MENU_MEDIUM_BUTTON = 1;
         private const int SETUP_MENU_HARD_BUTTON = 2;
+        private const int SETUP_MENU_MUTE = 3;
         private const int SETUP_MENU_EXIT_BUTTON = 3;
         private const int GAME_MENU_RETURN_BUTTON = 0;
-        private const int GAME_MENU_SURRENDER_BUTTON = 1;
-        private const int GAME_MENU_QUIT_BUTTON = 2;
+        private const int GAME_MENU_MUTE_BUTTON = 1;
+        private const int GAME_MENU_SURRENDER_BUTTON = 2;
+        private const int GAME_MENU_QUIT_BUTTON = 3;
         private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
         private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
 
@@ -293,6 +295,9 @@ namespace BattleShip
                 case SETUP_MENU_HARD_BUTTON:
                     GameController.SetDifficulty(AIOption.Hard);
                     break;
+                case SETUP_MENU_MUTE:
+                    GameController.MuteSound();
+                    break;
             }
 			//always end state - handles exit button as well
             GameController.EndCurrentState();
@@ -309,6 +314,9 @@ namespace BattleShip
             {
                 case GAME_MENU_RETURN_BUTTON:
                     GameController.EndCurrentState();
+                    break;
+                case GAME_MENU_MUTE_BUTTON:
+                    GameController.MuteSound();
                     break;
                 case GAME_MENU_SURRENDER_BUTTON:
                     GameController.EndCurrentState(); //end game menu
