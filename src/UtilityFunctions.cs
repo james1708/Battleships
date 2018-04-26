@@ -181,18 +181,19 @@ namespace BattleShip
 	
 					rowTop = top + (cellGap + cellHeight) * s.Row + SHIP_GAP;
 					colLeft = left + (cellGap + cellWidth) * s.Column + SHIP_GAP;
-
+                    //fixed here
 					if ((s.Direction == Direction.LeftRight)) 
 					{
+                        //left right
 						shipName = ("ShipLR" + s.Size);
-						shipHeight = (cellHeight - (SHIP_GAP * 2));
+						shipHeight = (cellHeight - (SHIP_GAP * 2));                     //changed this - to a +
 						shipWidth = (((cellWidth + cellGap) * s.Size) - ((SHIP_GAP * 2) + cellGap));
 					}
 					else 
 					{
 						// Up down
-						shipName = ("ShipUD" + s.Size);
-						shipHeight = (((cellHeight + cellGap) * s.Size) - ((SHIP_GAP * 2) + cellGap));
+						shipName = ("ShipUD" + s.Size);                                 //changed this - to a +
+                        shipHeight = (((cellHeight + cellGap) * s.Size) - ((SHIP_GAP * 2) + cellGap));
 						shipWidth = (cellWidth - (SHIP_GAP * 2));
 					}
 					if (!small) 

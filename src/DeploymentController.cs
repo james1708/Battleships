@@ -140,6 +140,9 @@ namespace BattleShip
                         if(!GameController.Mute)
                             Audio.PlaySoundEffect(GameResources.GameSound("Error"));
 
+                        //leave the ship where it is if the space already has a ship in it
+                        GameController.HumanPlayer.PlayerGrid.LeaveShip(_selectedShip);
+
                         UtilityFunctions.Message = ex.Message;
                     }
 

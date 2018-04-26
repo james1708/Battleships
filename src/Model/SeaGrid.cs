@@ -23,6 +23,10 @@ namespace BattleShip
         private Dictionary<ShipName, Ship> _Ships;
         private int _ShipsKilled = 0;
 
+        //used if the ship placement failed
+        private int _oldRow;
+        private int _oldCol;
+        private Direction _oldDir;
         /* <summary>
         * The sea grid has changed and should be redrawn.
         * </summary>
@@ -127,7 +131,7 @@ namespace BattleShip
         }
 
         /* <summary>
-        * MoveShips allows for ships to be placed on the seagrid
+        * MoveShips allows for ships to be placed on the seagrid also saves the previous directions and location of the ship
         * </summary>
         * <param name="row">the row selected</param>
         * <param name="col">the column selected</param>
@@ -138,7 +142,22 @@ namespace BattleShip
         {
             Ship newShip = _Ships[ship];
             newShip.Remove();
+            _oldCol = _Ships[ship].Column;
+            _oldRow = _Ships[ship].Row;
+            _oldDir = _Ships[ship].Direction;
             AddShip(row, col, direction, newShip);
+        }
+
+        /* <summary>
+        * LeaveShip create a new ship at the old possition
+        * </summary>
+        * <param name="ship">the ship selected</param>
+        */
+        public void LeaveShip(ShipName ship)
+        {
+            Ship newShip = _Ships[ship];
+            newShip.Remove();
+            AddShip(_oldRow, _oldCol, _oldDir, newShip);
         }
 
         /* <summary>

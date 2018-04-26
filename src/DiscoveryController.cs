@@ -51,7 +51,7 @@ namespace BattleShip
             {
                 if (col >= 0 & col < GameController.HumanPlayer.EnemyGrid.Width)
                 {
-                    GameController.Attack(row, col);
+                    GameController.Attack(row, col); //mark
                 }
             }
         }
