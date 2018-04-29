@@ -172,5 +172,10 @@ namespace BattleShip
                 throw new ApplicationException("You have already shot this square");
             }
         }
+		
+		public void Reset ()
+		{
+			Shot = false;
+		}
     }
 }

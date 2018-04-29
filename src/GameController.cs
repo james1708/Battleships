@@ -427,5 +427,10 @@ namespace BattleShip
                 return _mute;
             }
         }
+		
+		public static void RestartGame ()
+		{
+			_theGame.Reset ();
+		}
     }
 }

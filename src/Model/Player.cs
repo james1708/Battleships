@@ -300,5 +300,11 @@ namespace BattleShip
                 } while (!placementSuccessful);
             }
         }
+		
+		public void Reset ()
+		{
+			_playerGrid.Reset ();
+
+		}
     }
 }

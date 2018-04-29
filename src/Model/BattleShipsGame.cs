@@ -111,5 +111,13 @@ namespace BattleShip
             }
             return newAttack;
         }
+		
+		public void Reset ()
+		{
+			for (int i = 0; i < _players.Length; i++) {
+				_players[i].Reset();
+			}
+			_playerIndex = 0;
+		}
     }
 }
