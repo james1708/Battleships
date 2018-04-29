@@ -24,7 +24,7 @@ namespace BattleShip
 
         public event AttackCompletedHandler AttackCompleted;
 
-        private Player[] _players = new Player[3];
+        private Player[] _players = new Player[2];
 
         private int _playerIndex = 0;
 
