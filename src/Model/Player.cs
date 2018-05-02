@@ -116,7 +116,10 @@ namespace BattleShip
             }
         }
 
-        //COMMENT HERE
+        /* <summary>
+         * IsDestroyed returns true if all ships are destroyed
+         * </summary>
+         */
         public bool IsDestroyed
         {
             get
@@ -157,7 +160,12 @@ namespace BattleShip
             }
         }
 
-        //COMMENT HERE
+        /* <summary>
+         * The number of hits the player has made
+         * </summary>
+         * <value>Number of hits</value>
+         * <returns>The number of hits made</returns>
+         */ 
         public int Hits
         {
             get
@@ -180,7 +188,12 @@ namespace BattleShip
             }
         }
 
-        //COMMENT HERE
+        /*<summary>
+         * Returns score calculated using hits, misses and shots, returns zero if all ships destroyed.
+         * </summary>
+         * <value>final score</value>
+         * <returns>final score from hits and misses</returns>
+         */
         public int Score
         {
             get
@@ -262,7 +275,11 @@ namespace BattleShip
             return result;
         }
 
-        //COMMENT HERE
+        /* <summary>
+        * Randomises ship in shiplist locations 
+        * Cycles through list and randomises x and y and direction values, repeats with new location if already taken.
+        * </summary>
+        */
         public virtual void RandomizeDeployment()
         {
             bool placementSuccessful = false;

@@ -15,14 +15,14 @@ namespace BattleShip
 {
     public class Ship
     {
-        //COMMENT HERE
-        private ShipName _shipName;
-        private int _sizeOfShip;
-        private int _hitsTaken = 0;
-        private List<Tile> _tiles;
-        private int _row;
-        private int _col;
-        private Direction _direction;
+        //declares Ship properties
+        private ShipName _shipName;    //Ship name
+        private int _sizeOfShip;        //Ship size
+        private int _hitsTaken = 0;     //hits
+        private List<Tile> _tiles;      //list of tiles taken by ship
+        private int _row;               //location row
+        private int _col;               //location column
+        private Direction _direction;   //direction facing
 		
 		/* <summary>
 		* The type of ship
