@@ -267,5 +267,14 @@ namespace BattleShip
             }
 
         }
+		
+		public void Reset ()
+		{
+			for (int y = 0; y < Height; y++) {
+				for (int x = 0; x < Width; x++) {
+					_GameTiles [y, x].Reset ();
+				}
+			}
+		}
     }
 }
