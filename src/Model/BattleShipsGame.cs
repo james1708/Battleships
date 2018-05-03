@@ -24,7 +24,7 @@ namespace BattleShip
 
         public event AttackCompletedHandler AttackCompleted;
 
-        private Player[] _players = new Player[3];
+        private Player[] _players = new Player[2];
 
         private int _playerIndex = 0;
 
@@ -111,5 +111,13 @@ namespace BattleShip
             }
             return newAttack;
         }
+		
+		public void Reset ()
+		{
+			for (int i = 0; i < _players.Length; i++) {
+				_players[i].Reset();
+			}
+			_playerIndex = 0;
+		}
     }
 }
