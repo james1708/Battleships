@@ -20,7 +20,7 @@ namespace BattleShip
 		*These are the text captions for the menu items.
 		*</remarks>
 		*/
-        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "MUTE", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD", "MUTE" } };
+        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "MUTE", "SURRENDER", "QUIT","REPLAY"  }, new string[] { "EASY", "MEDIUM", "HARD", "MUTE" } };
         private const int MENU_TOP = 575;
         private const int MENU_LEFT = 30;
         private const int MENU_GAP = 0;
@@ -44,6 +44,7 @@ namespace BattleShip
         private const int GAME_MENU_MUTE_BUTTON = 1;
         private const int GAME_MENU_SURRENDER_BUTTON = 2;
         private const int GAME_MENU_QUIT_BUTTON = 3;
+		private const int GAME_MENU_REPLAY_BUTTON = 4;
         private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
         private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
 
@@ -325,6 +326,11 @@ namespace BattleShip
                 case GAME_MENU_QUIT_BUTTON:
                     GameController.EndCurrentState();
                     GameController.AddNewState(GameState.Quitting);
+                    break;
+					
+				case GAME_MENU_REPLAY_BUTTON:					
+					GameController.RestartGame ();
+					GameController.EndCurrentState ();
                     break;
             }
         }
