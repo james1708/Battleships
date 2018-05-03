@@ -14,11 +14,11 @@ namespace BattleShip
 {
     public class SeaGrid : ISeaGrid
     {
-        //COMMENT HERE
+        //Set grid height and width constants
         private const int _WIDTH = 10;
         private const int _HEIGHT = 10;
 
-        //COMMENT HERE
+        //Declares grid as 2d array of game tiles and declares dictionary of shipnames and ships
         private Tile[,] _GameTiles;
         private Dictionary<ShipName, Ship> _Ships;
         private int _ShipsKilled = 0;

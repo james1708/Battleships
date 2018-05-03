@@ -1,4 +1,4 @@
-Microsoft (R) Visual C# Compiler version 4.7.2556.0
+Microsoft (R) Visual C# Compiler version 4.7.2558.0
 for C# 5
 Copyright (C) Microsoft Corporation. All rights reserved.
 
@@ -6,4 +6,3 @@ This compiler is provided as part of the Microsoft (R) .NET Framework, but only 
 
 src\Model\AIPlayer.cs(19,19): warning CS0660: 'BattleShip.AIPlayer.Location' defines operator == or operator != but does not override Object.Equals(object o)
 src\Model\AIPlayer.cs(19,19): warning CS0661: 'BattleShip.AIPlayer.Location' defines operator == or operator != but does not override Object.GetHashCode()
-src\GameLogic.cs(22,55): error CS0103: The name 'CurrentState' does not exist in the current context
