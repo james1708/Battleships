@@ -255,7 +255,7 @@ namespace BattleShip
                 {
                     _GameTiles[row, col].Shot = true;
                     _ShipsKilled++;
-                    return new AttackResult(ResultOfAttack.Destroyed, _GameTiles[row, col].Ship, "destroyed the enemy\'s", row, col);
+                    return new AttackResult(ResultOfAttack.Destroyed, _GameTiles[row, col].Ship, "destroyed a", row, col);
                 }
 
                 // else hit but not destroyed

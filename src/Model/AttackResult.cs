@@ -14,6 +14,7 @@ namespace BattleShip
         private string _Text;
         private int _Row;
         private int _Column;
+        private string _Player;
 
 		/* <summary>
 		* The result of the attack

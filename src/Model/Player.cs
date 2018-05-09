@@ -64,13 +64,36 @@ namespace BattleShip
             _game = controller;
             _playerGrid = new SeaGrid(_Ships);
             // for each ship add the ships name so the seagrid knows about them
-            foreach (ShipName name in Enum.GetValues(typeof(ShipName)))
+            if (GameController.ShipsToDeploy == 3)
             {
-                if (name != ShipName.None)
+                foreach (ShipName name in Enum.GetValues(typeof(ShipName)))
                 {
-                    _Ships.Add(name, new Ship(name));
-                }
+                    if ((name != ShipName.None) && (name != ShipName.Tug) && (name != ShipName.Submarine))
+                    {
+                        _Ships.Add(name, new Ship(name));
+                    }
 
+                }
+            }
+            else if (GameController.ShipsToDeploy == 4)
+            {
+                foreach (ShipName name in Enum.GetValues(typeof(ShipName)))
+                {
+                    if ((name != ShipName.None) && (name != ShipName.Tug))
+                    {
+                        _Ships.Add(name, new Ship(name));
+                    }
+                }
+            }
+            else
+            {
+                foreach (ShipName name in Enum.GetValues(typeof(ShipName)))
+                {
+                    if ((name != ShipName.None))
+                    {
+                        _Ships.Add(name, new Ship(name));
+                    }
+                }
             }
 
             RandomizeDeployment();
@@ -125,7 +148,7 @@ namespace BattleShip
             get
             {
                 // Check if all ships are destroyed... -1 for the none ship
-                return _playerGrid.ShipsKilled == Enum.GetValues(typeof(ShipName)).Length - 1;
+                return _playerGrid.ShipsKilled == _Ships.Count;
             }
         }
 
@@ -259,7 +282,6 @@ namespace BattleShip
         */
 		internal AttackResult Shoot(int row, int col)
         {
-            _shots++;
             AttackResult result;
             result = EnemyGrid.HitTile(row, col);
             switch (result.Value)
@@ -267,9 +289,11 @@ namespace BattleShip
                 case ResultOfAttack.Destroyed:
                 case ResultOfAttack.Hit:
                     _hits++;
+                    _shots++;
                     break;
                 case ResultOfAttack.Miss:
                     _misses++;
+                    _shots++;
                     break;
             }
             return result;
@@ -285,7 +309,7 @@ namespace BattleShip
             bool placementSuccessful = false;
             Direction heading = default(Direction);
             // for each ship to deploy in shipist
-            foreach (ShipName shipToPlace in Enum.GetValues(typeof(ShipName)))
+            foreach (ShipName shipToPlace in _Ships.Keys)
             {
                 if (shipToPlace == ShipName.None) continue;
 
