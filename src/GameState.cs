@@ -11,6 +11,7 @@ public enum GameState
     ViewingGameMenu,	//the player is viewing the game menu
     ViewingHighScores,	//the player is looking at the high scores
     AlteringSettings,	//the player is altering the game settings
+    AlteringShips,
     Deploying,			//player are deploying their ships
     Discovering,		//players are attempting to locate each others ships
     EndingGame,			//one player has won, showing the victory screen

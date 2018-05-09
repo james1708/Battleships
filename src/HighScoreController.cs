@@ -15,8 +15,9 @@ namespace BattleShip
 {
     static class HighScoreController
     {
-        private const int NAME_WIDTH = 3;
+        private const int NAME_WIDTH = 8;
         private const int SCORES_LEFT = 490;
+
 		/*<summary>
 		*The score structure is used to keep the name and
 		*score of the top players together.
@@ -24,6 +25,7 @@ namespace BattleShip
         */
 		private struct Score : IComparable
         {
+            public int Length;
             public string Name;
             public int Value;
 			
@@ -79,11 +81,14 @@ namespace BattleShip
             {
                 Score s;
                 string line;
+                int length;
 
+                length = Convert.ToInt32(input.ReadLine());
                 line = input.ReadLine();
 
-                s.Name = line.Substring(0, NAME_WIDTH);
-                s.Value = Convert.ToInt32(line.Substring(NAME_WIDTH));
+                s.Length = length;
+                s.Name = line.Substring(0, length);
+                s.Value = Convert.ToInt32(line.Substring(length));
                 _Scores.Add(s);
             }
             input.Close();
@@ -112,6 +117,7 @@ namespace BattleShip
 
             foreach (Score s in _Scores)
             {
+                output.WriteLine(s.Length);
                 output.WriteLine(s.Name + s.Value);
             }
 
@@ -188,7 +194,7 @@ namespace BattleShip
                 rec.X = SCORES_LEFT + SwinGame.TextWidth(GameResources.GameFont("Courier"), "Name:");
                 rec.Y = ENTRY_TOP;
                 rec.Height = SwinGame.TextHeight(GameResources.GameFont("Courier"), "XXX");
-                rec.Width = SwinGame.TextWidth(GameResources.GameFont("Courier"), "XXXXX");
+                rec.Width = SwinGame.TextWidth(GameResources.GameFont("Courier"), "XXXXXXX");
 
                 Score s = new Score();
                 s.Value = value;
@@ -215,6 +221,8 @@ namespace BattleShip
                 {
                     s.Name = s.Name + new string(Convert.ToChar(" "), 3 - s.Name.Length);
                 }
+
+                s.Length = s.Name.Length;
 
                 _Scores.RemoveAt(_Scores.Count - 1);
                 _Scores.Add(s);

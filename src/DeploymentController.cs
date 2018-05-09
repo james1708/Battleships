@@ -41,7 +41,7 @@ namespace BattleShip
 
         private static Direction _currentDirection = Direction.UpDown;
 
-        private static ShipName _selectedShip = ShipName.Tug;
+        private static ShipName _selectedShip = ShipName.AircraftCarrier;
 
 		/*<summary>
         *Handles user input for the Deployment phase of the game.
@@ -78,7 +78,35 @@ namespace BattleShip
             {
                 ShipName selected;
                 selected = GetShipMouseIsOver();
-                if ((selected != ShipName.None))
+                if(GameController.ShipsToDeploy == 3)
+                {
+                    if ((selected != ShipName.None))
+                    {
+                        if ((selected != ShipName.Tug) && (selected != ShipName.Submarine))
+                        {
+                            _selectedShip = selected;
+                        }                        
+                    }
+                    else
+                    {
+                        DeploymentController.DoDeployClick();
+                    }
+                }
+                else if(GameController.ShipsToDeploy == 4)
+                {
+                    if (selected != ShipName.None)
+                    {
+                        if (selected != ShipName.Tug)
+                        {
+                            _selectedShip = selected;
+                        }
+                    }
+                    else
+                    {
+                        DeploymentController.DoDeployClick();
+                    }
+                }
+                else if ((selected != ShipName.None))
                 {
                     _selectedShip = selected;
                 }

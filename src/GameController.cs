@@ -24,6 +24,8 @@ namespace BattleShip
 
         private static AIOption _aiSetting;
 
+        private static int _shipsToDeploy = 5;
+
         private static bool _mute = false;
 
         /*<summary>
@@ -38,6 +40,18 @@ namespace BattleShip
             get
             {
                 return _state.Peek();
+            }
+        }
+
+        public static int ShipsToDeploy
+        {
+            get
+            {
+                return _shipsToDeploy;
+            }
+            set
+            {
+                _shipsToDeploy = value;
             }
         }
 
@@ -313,6 +327,9 @@ namespace BattleShip
                 case GameState.AlteringSettings:
                     MenuController.HandleSetupMenuInput();
                     break;
+                case GameState.AlteringShips:
+                    MenuController.HandleShipsMenuInput();
+                    break;
                 case GameState.Deploying:
                     DeploymentController.HandleDeploymentInput();
                     break;
@@ -349,6 +366,9 @@ namespace BattleShip
                     break;
                 case GameState.AlteringSettings:
                     MenuController.DrawSettings();
+                    break;
+                case GameState.AlteringShips:
+                    MenuController.DrawShipsMenu();
                     break;
                 case GameState.Deploying:
                     DeploymentController.DrawDeployment();

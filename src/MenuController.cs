@@ -20,7 +20,7 @@ namespace BattleShip
 		*These are the text captions for the menu items.
 		*</remarks>
 		*/
-        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "MUTE", "SURRENDER", "QUIT","REPLAY"  }, new string[] { "EASY", "MEDIUM", "HARD", "MUTE" } };
+        private static readonly string[][] _menuStructure = { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "MUTE", "SURRENDER", "QUIT", "REPLAY" }, new string[] { "EASY", "MEDIUM", "HARD", "MUTE", "SHIPS" }, new string[] { "3", "4", "5" } };
         private const int MENU_TOP = 575;
         private const int MENU_LEFT = 30;
         private const int MENU_GAP = 0;
@@ -31,6 +31,7 @@ namespace BattleShip
         private const int MAIN_MENU = 0;
         private const int GAME_MENU = 1;
         private const int SETUP_MENU = 2;
+        private const int SHIPS_MENU = 3;
         private const int MAIN_MENU_PLAY_BUTTON = 0;
         private const int MAIN_MENU_SETUP_BUTTON = 1;
         private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
@@ -39,12 +40,16 @@ namespace BattleShip
         private const int SETUP_MENU_MEDIUM_BUTTON = 1;
         private const int SETUP_MENU_HARD_BUTTON = 2;
         private const int SETUP_MENU_MUTE = 3;
-        private const int SETUP_MENU_EXIT_BUTTON = 3;
+        private const int SETUP_MENU_SHIPS = 4;
+       // private const int SETUP_MENU_EXIT_BUTTON = 5;
         private const int GAME_MENU_RETURN_BUTTON = 0;
         private const int GAME_MENU_MUTE_BUTTON = 1;
         private const int GAME_MENU_SURRENDER_BUTTON = 2;
         private const int GAME_MENU_QUIT_BUTTON = 3;
 		private const int GAME_MENU_REPLAY_BUTTON = 4;
+        private const int SHIPS_MENU_3 = 0;
+        private const int SHIPS_MENU_4 = 1;
+        private const int SHIPS_MENU_5 = 2;
         private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
         private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
 
@@ -55,6 +60,17 @@ namespace BattleShip
         public static void HandleMainMenuInput()
         {
             HandleMenuInput(MAIN_MENU, 0, 0);
+        }
+
+
+        public static void HandleShipsMenuInput()
+        {
+            bool handled;
+            handled = HandleMenuInput(SHIPS_MENU, 2, 2);
+            if(!handled)
+            {
+                HandleMenuInput(MAIN_MENU, 0, 0);
+            }
         }
 
 		/*<summary>
@@ -159,6 +175,13 @@ namespace BattleShip
             DrawButtons(SETUP_MENU, 1, 1);
         }
 
+        public static void DrawShipsMenu()
+        {
+            DrawButtons(MAIN_MENU);
+            DrawButtons(SETUP_MENU, 1, 1);
+            DrawButtons(SHIPS_MENU, 2, 2);
+        }
+
 		/*<summary>
 		*Draw the buttons associated with a top level menu.
 		*</summary>
@@ -251,7 +274,27 @@ namespace BattleShip
                 case GAME_MENU:
                     PerformGameMenuAction(button);
                     break;
+                case SHIPS_MENU:
+                    PerformShipsMenuAction(button);
+                    break;
             }
+        }
+
+        private static void PerformShipsMenuAction(int button)
+        {
+            switch(button)
+            {
+                case SHIPS_MENU_3:
+                    GameController.ShipsToDeploy = 3;
+                    break;
+                case SHIPS_MENU_4:
+                    GameController.ShipsToDeploy = 4;
+                    break;
+                case SHIPS_MENU_5:
+                    GameController.ShipsToDeploy = 5;
+                    break;
+            }
+            GameController.EndCurrentState();
         }
 
 		/*<summary>
@@ -289,19 +332,26 @@ namespace BattleShip
             {
                 case SETUP_MENU_EASY_BUTTON:
                     GameController.SetDifficulty(AIOption.Easy);
+                    GameController.EndCurrentState();
                     break;
                 case SETUP_MENU_MEDIUM_BUTTON:
                     GameController.SetDifficulty(AIOption.Medium);
+                    GameController.EndCurrentState();
                     break;
                 case SETUP_MENU_HARD_BUTTON:
                     GameController.SetDifficulty(AIOption.Hard);
+                    GameController.EndCurrentState();
                     break;
                 case SETUP_MENU_MUTE:
                     GameController.MuteSound();
+                    GameController.EndCurrentState();
+                    break;
+                case SETUP_MENU_SHIPS:
+                    GameController.AddNewState(GameState.AlteringShips);
                     break;
             }
 			//always end state - handles exit button as well
-            GameController.EndCurrentState();
+            //GameController.EndCurrentState();
         }
 
 		/*<summary>
