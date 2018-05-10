@@ -15,7 +15,7 @@ namespace BattleShip
 {
     static class HighScoreController
     {
-        private const int NAME_WIDTH = 8;
+        private const int NAME_WIDTH = 10;
         private const int SCORES_LEFT = 490;
 
 		/*<summary>
@@ -194,7 +194,7 @@ namespace BattleShip
                 rec.X = SCORES_LEFT + SwinGame.TextWidth(GameResources.GameFont("Courier"), "Name:");
                 rec.Y = ENTRY_TOP;
                 rec.Height = SwinGame.TextHeight(GameResources.GameFont("Courier"), "XXX");
-                rec.Width = SwinGame.TextWidth(GameResources.GameFont("Courier"), "XXXXXXX");
+                rec.Width = SwinGame.TextWidth(GameResources.GameFont("Courier"), "XXXXXXXXXXXXXX");
 
                 Score s = new Score();
                 s.Value = value;
